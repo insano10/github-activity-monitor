@@ -23,7 +23,7 @@ public class PullRequestAnalyser
             Set<String> commentersSeen = new HashSet<>();
             for (Comment comment : pullRequest.getComments())
             {
-                if (!commentersSeen.contains(comment.getOwner()))
+                if (!commentersSeen.contains(comment.getOwner()) && !comment.getOwner().equals(pullRequest.getOwner()))
                 {
                     final PullRequestSummary commenterSummary = getSummary(comment.getOwner(), summaries);
 

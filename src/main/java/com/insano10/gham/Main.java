@@ -31,10 +31,12 @@ public class Main
             final PullRequestAnalyser pullRequestAnalyser = new PullRequestAnalyser();
             final Map<String, PullRequestSummary> summaries = pullRequestAnalyser.analyse(transformedRequests);
 
+            System.out.println(repo);
             for (PullRequestSummary summary : summaries.values())
             {
                 System.out.println(summary);
             }
+            System.out.println();
 
         }
     }
