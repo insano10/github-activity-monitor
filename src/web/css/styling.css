@@ -5,3 +5,9 @@
     margin: 20px;
     width: 500px;
 }
+
+.user-card {
+    width: 300px;
+    float: left;
+    margin: 30px;
+}

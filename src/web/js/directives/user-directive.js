@@ -6,7 +6,7 @@
     {
         return {
             restrict:     'E',
-            templateUrl:  'templates/directives/user-view.html',
+            templateUrl:  'templates/directives/user-card.html',
             scope: {
                 user: "="
             }
