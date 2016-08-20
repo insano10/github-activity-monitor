@@ -3,13 +3,13 @@ package com.insano10.github
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
-import com.insano10.github.entities.{PullRequestSummary, PullRequest}
+import com.insano10.github.entities.{UserSummary, PullRequest}
 
 class PullRequestAnalyser {
 
-  def analyse(pullRequests: List[PullRequest]): List[PullRequestSummary] = {
+  def buildUserSummaries(pullRequests: List[PullRequest]): List[UserSummary] = {
 
-    var summaries: Map[String, PullRequestSummary] = Map()
+    var summaries: Map[String, UserSummary] = Map()
 
     pullRequests.foreach(pullRequest => {
 
@@ -40,8 +40,6 @@ class PullRequestAnalyser {
     summaries.values.toList
   }
 
-  private def getSummary(user: String, summaries: Map[String, PullRequestSummary]) = {
+  private def getSummary(user: String, summaries: Map[String, UserSummary]) = summaries.getOrElse(user, new UserSummary(user))
 
-    summaries.getOrElse(user, new PullRequestSummary(user))
-  }
 }

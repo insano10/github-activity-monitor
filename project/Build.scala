@@ -25,6 +25,8 @@ object GithubActivityMonitorBuild extends Build {
       libraryDependencies ++= Seq(
         "org.kohsuke" % "github-api" % "1.77",
         "com.typesafe" % "config" % "1.2.1",
+        "com.typesafe.scala-logging" % "scala-logging_2.11" % "3.4.0",
+        "com.github.cb372" %% "scalacache-guava" % "0.9.1",
         "org.scalatra" %% "scalatra" % ScalatraVersion,
         "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
         "org.scalatra" %% "scalatra-json" % ScalatraVersion,
