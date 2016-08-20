@@ -1,5 +1,6 @@
 package com.insano10.github
 
+import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
 import com.insano10.github.entities.{PullRequestSummary, PullRequest}
@@ -13,7 +14,11 @@ class PullRequestAnalyser {
     pullRequests.foreach(pullRequest => {
 
       val summary = getSummary(pullRequest.owner, summaries)
-      val minsOpen: Long = pullRequest.created.until(pullRequest.closed, ChronoUnit.MINUTES)
+      val currentOpenEndDate = pullRequest.closed match {
+        case None => LocalDateTime.now()
+        case Some(date) => date
+      }
+      val minsOpen: Long = pullRequest.created.until(currentOpenEndDate, ChronoUnit.MINUTES)
 
       summary.pullRequestRaised(minsOpen)
       var commentersSeen = Set[String]()

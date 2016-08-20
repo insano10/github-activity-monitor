@@ -19,7 +19,7 @@ class PullRequestTransformer {
       pullRequests.iterator().asScala.
         takeWhile(pr => toLocalDateTime(pr.getCreatedAt).isAfter(minDate)).
         map(pr => {
-          val pullRequest: PullRequest = new PullRequest(pr.getUser.getLogin, pr.getTitle, toLocalDateTime(pr.getCreatedAt), toLocalDateTime(pr.getClosedAt))
+          val pullRequest: PullRequest = new PullRequest(pr.getUser.getLogin, pr.getTitle, toLocalDateTime(pr.getCreatedAt), toOptionalLocalDateTime(pr.getClosedAt))
 
           for (comment <- pr.getComments.asScala) {
             pullRequest.addComment(new Comment(comment.getUser.getLogin, toLocalDateTime(comment.getUpdatedAt)))
@@ -35,5 +35,10 @@ class PullRequestTransformer {
 
   private def toLocalDateTime(date: Date): LocalDateTime = {
     LocalDateTime.ofInstant(date.toInstant, ZoneId.of("UTC"))
+  }
+
+  private def toOptionalLocalDateTime(date: Date): Option[LocalDateTime] = date match {
+    case null => None
+    case d => Some(toLocalDateTime(d))
   }
 }

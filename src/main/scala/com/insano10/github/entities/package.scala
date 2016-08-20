@@ -1,12 +1,12 @@
 package com.insano10.github
 
-import java.time.{LocalDate, LocalDateTime}
+import java.time.LocalDateTime
 
 package object entities {
 
   case class Comment(val owner: String, val created: LocalDateTime)
 
-  case class PullRequest(val owner: String, val title: String, val created: LocalDateTime, val closed: LocalDateTime, var comments: List[Comment] = List()) {
+  case class PullRequest(val owner: String, val title: String, val created: LocalDateTime, val closed: Option[LocalDateTime], var comments: List[Comment] = List()) {
 
     def addComment(comment: Comment): Unit = {
       comments = comment::comments

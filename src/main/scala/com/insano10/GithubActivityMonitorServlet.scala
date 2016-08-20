@@ -5,7 +5,7 @@ import com.insano10.github.entities.PullRequestSummary
 import com.typesafe.config.ConfigFactory
 import org.json4s.{DefaultFormats, Formats}
 import org.kohsuke.github.GitHub
-import org.scalatra.CorsSupport
+import org.scalatra._
 import org.scalatra.json.JacksonJsonSupport
 import org.scalatra.json._
 import org.slf4j.{LoggerFactory, Logger}
@@ -19,6 +19,12 @@ class GithubActivityMonitorServlet extends GithubActivityMonitorStack with Jacks
 
   before() {
     contentType = formats("json")
+  }
+
+  errorHandler = {
+    case t =>
+      logger.error("Error in route", t)
+      throw t
   }
 
   options("/*") {
