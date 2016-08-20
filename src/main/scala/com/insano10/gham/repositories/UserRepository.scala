@@ -1,11 +1,27 @@
-package com.insano10.gham.github
+package com.insano10.gham.repositories
 
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
-import com.insano10.gham.github.entities.{UserSummary, PullRequest}
+import com.insano10.gham.github.entities.{PullRequest, UserSummary}
 
-class PullRequestAnalyser {
+import scala.concurrent.duration._
+import scalacache.ScalaCache
+import scalacache.guava.GuavaCache
+import scalacache.memoization._
+
+class UserRepository(pullRequestRepository: PullRequestRepository) {
+
+  implicit val cache = ScalaCache(GuavaCache())
+
+  def getUserSummaries(repositories: List[String], monthsDataToRetrieve: Long): List[UserSummary] = {
+
+    memoizeSync(30 minutes) {
+
+      val pullRequests = pullRequestRepository.getPullRequests(repositories, monthsDataToRetrieve)
+      buildUserSummaries(pullRequests)
+    }
+  }
 
   def buildUserSummaries(pullRequests: List[PullRequest]): List[UserSummary] = {
 

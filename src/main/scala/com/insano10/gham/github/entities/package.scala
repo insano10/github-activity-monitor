@@ -6,7 +6,13 @@ package object entities {
 
   case class Comment(val owner: String, val created: LocalDateTime)
 
-  case class PullRequest(val owner: String, val title: String, val created: LocalDateTime, val closed: Option[LocalDateTime], var comments: List[Comment] = List()) {
+  case class PullRequest(val repositoryName: String,
+                         val repositoryFullName: String,
+                         val owner: String,
+                         val title: String,
+                         val created: LocalDateTime,
+                         val closed: Option[LocalDateTime],
+                         var comments: List[Comment] = List()) {
 
     def addComment(comment: Comment): Unit = {
       comments = comment::comments
@@ -29,4 +35,8 @@ package object entities {
       totalPullRequestsCommentedOn +=1
     }
   }
+
+  case class RepositorySummary(val name: String,
+                               val pullRequests: List[PullRequest],
+                               val lastCommitTime: LocalDateTime)
 }
