@@ -9,6 +9,14 @@
             templateUrl:  'templates/directives/repository-card.html',
             scope: {
                 repository: "="
+            },
+            link: function (scope, element, attrs) {
+
+                scope.activeTab = 1;
+
+                scope.showTab = function(tabId) {
+                    scope.activeTab = tabId;
+              }
             }
         };
     });

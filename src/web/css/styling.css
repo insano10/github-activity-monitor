@@ -1,13 +1,17 @@
-.user-container {
-    border: 1px solid #DADADA;
-    border-radius: 4px;
-    padding: 20px;
-    margin: 20px;
-    width: 500px;
-}
-
-.user-card {
+.dash-card {
     width: 300px;
     float: left;
     margin: 30px;
+}
+
+.dash-card-title {
+    padding-bottom: 10px;
+}
+
+.dash-nav-tabs {
+    width: 290px;
+}
+
+.dash-nav-item {
+    width: 138px;
 }
