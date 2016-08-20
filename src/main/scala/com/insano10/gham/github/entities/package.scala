@@ -1,4 +1,4 @@
-package com.insano10.github
+package com.insano10.gham.github
 
 import java.time.LocalDateTime
 

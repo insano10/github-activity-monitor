@@ -1,10 +1,10 @@
-package com.insano10.github
+package com.insano10.gham.github
 
 import java.io.IOException
 import java.time.{LocalDateTime, ZoneId}
 import java.util.Date
 
-import com.insano10.github.entities.{Comment, PullRequest}
+import com.insano10.gham.github.entities.{Comment, PullRequest}
 import org.kohsuke.github.{GHPullRequest, PagedIterable}
 import scala.collection.JavaConverters._
 

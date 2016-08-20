@@ -1,5 +1,6 @@
-package com.insano10
+package com.insano10.gham
 
+import com.insano10.gham.responses.UserRepository
 import com.typesafe.scalalogging.StrictLogging
 import org.json4s.{DefaultFormats, Formats}
 import org.scalatra._

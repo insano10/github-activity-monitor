@@ -1,9 +1,9 @@
-package com.insano10.github
+package com.insano10.gham.github
 
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
-import com.insano10.github.entities.{UserSummary, PullRequest}
+import com.insano10.gham.github.entities.{UserSummary, PullRequest}
 
 class PullRequestAnalyser {
 

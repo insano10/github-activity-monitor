@@ -1,6 +1,5 @@
 import javax.servlet.ServletContext
-
-import com.insano10.GithubActivityMonitorServlet
+import com.insano10.gham.GithubActivityMonitorServlet
 import org.scalatra._
 
 class ScalatraBootstrap extends LifeCycle {

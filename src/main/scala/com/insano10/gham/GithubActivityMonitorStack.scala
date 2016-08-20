@@ -1,6 +1,6 @@
-package com.insano10
+package com.insano10.gham
 
-import org.scalatra._
+import org.scalatra.ScalatraServlet
 import org.scalatra.scalate.ScalateSupport
 
 trait GithubActivityMonitorStack extends ScalatraServlet with ScalateSupport {
