@@ -15,3 +15,37 @@
 .dash-nav-item {
     width: 138px;
 }
+
+.dash-footer {
+    padding: 0;
+}
+
+.dash-footer .col-xs-6 {
+    padding: 0;
+}
+
+.dash-pr-count-container {
+    padding: 10px 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.dash-pr-count-container.pr-open {
+    color: crimson;
+    border-left: 1px solid rgba(0,0,0,0.125);
+}
+
+.dash-pr-count-container.pr-closed {
+    color: forestgreen;
+}
+
+.dash-footer-text-top {
+    font-size: 12px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+.dash-footer-text-bottom {
+    font-size: 12px;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    font-weight: bold;
+}

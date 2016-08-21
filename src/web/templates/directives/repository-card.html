@@ -10,7 +10,7 @@
             <li class="nav-item dash-nav-item">
                 <div class="nav-link"
                      ng-class="{'active': activeTab == 2}"
-                     ng-click="showTab(2)"><span class="octicon octicon-person"></span></div>
+                     ng-click="showTab(2)"><span class="octicon octicon-organization"></span></div>
             </li>
         </ul>
     </div>
@@ -24,6 +24,25 @@
             <h4 class="card-title">Special title treatment2</h4>
             <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+    </div>
+    <div class="card-footer dash-footer">
+        <div class="dash-footer-text-top">
+            Pull requests in the last {{ months }} months:
+        </div>
+        <div>
+            <div class="col-xs-6">
+                <div class="dash-pr-count-container pr-closed">
+                    {{ closedPullRequests }}
+                </div>
+                <div class="dash-footer-text-bottom">closed</div>
+            </div>
+            <div class="col-xs-6">
+                <div class="dash-pr-count-container pr-open">
+                    {{ openPullRequests }}
+                </div>
+                <div class="dash-footer-text-bottom">open</div>
+            </div>
         </div>
     </div>
 </div>

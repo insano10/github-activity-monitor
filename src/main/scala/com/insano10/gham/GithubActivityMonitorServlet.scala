@@ -1,5 +1,6 @@
 package com.insano10.gham
 
+import com.insano10.gham.github.entities.AppConfig
 import com.insano10.gham.repositories.{PullRequestRepository, RepositoryRepository, UserRepository}
 import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.StrictLogging
@@ -48,6 +49,11 @@ class GithubActivityMonitorServlet extends GithubActivityMonitorStack
   get("/repository") {
 
     repoRepository.getRepositorySummaries(repoList, monthsDataToRetrieve)
+  }
+
+  get("/config") {
+
+    new AppConfig(monthsDataToRetrieve)
   }
 
 }

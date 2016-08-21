@@ -39,4 +39,6 @@ package object entities {
   case class RepositorySummary(val name: String,
                                val pullRequests: List[PullRequest],
                                val lastCommitTime: LocalDateTime)
+
+  case class AppConfig(val monthsData: Integer)
 }

@@ -2,7 +2,7 @@
 {
     var mod = angular.module("main");
 
-    mod.controller("RepositoryController", ['Repository', function (Repository)
+    mod.controller("RepositoryController", ['Repository', '$http', function (Repository, $http)
     {
         var ctrl = this;
 
@@ -11,6 +11,11 @@
         }, function(errorResponse){
             console.log("error: " + JSON.stringify(errorResponse));
         });
+
+        $http.get("http://localhost:8080/config")
+            .then(function(response) {
+                ctrl.months = response.data.monthsData;
+            });
     }]);
 
 })();
