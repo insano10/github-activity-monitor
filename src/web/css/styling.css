@@ -1,3 +1,26 @@
+.app-header {
+    height: 45px;
+    background-color: cadetblue;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.app-header-inner {
+    margin-left: auto;
+    margin-right: auto;
+    width: 300px;
+}
+
+.app-header-mark {
+    margin-top: 1px;
+}
+
+.app-header-logo {
+    width: 128px;
+    margin-top: -8px;
+}
+
 .card-block {
     height: 187px;
 }
@@ -78,6 +101,10 @@
 
 .dash-pr-count-container.pr-closed {
     color: forestgreen;
+}
+
+.pr-open-warning {
+    background-color: #ffcc80;
 }
 
 .dash-footer-text-top {

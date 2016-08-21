@@ -46,7 +46,7 @@
                 <div class="dash-footer-text-bottom">closed</div>
             </div>
             <div class="col-xs-6">
-                <div class="dash-pr-count-container pr-open">
+                <div class="dash-pr-count-container pr-open" ng-class="{'pr-open-warning': openPullRequests > 0 }">
                     {{ openPullRequests }}
                 </div>
                 <div class="dash-footer-text-bottom">open</div>
