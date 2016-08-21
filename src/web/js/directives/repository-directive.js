@@ -13,9 +13,6 @@
             },
             link: function (scope, element, attrs) {
 
-                console.log(scope.repository.name);
-                console.log(scope.months);
-
                 scope.totalPullRequests = scope.repository.pullRequests.length;
 
                 scope.closedPullRequests = scope.repository.pullRequests.filter(function(pr) {

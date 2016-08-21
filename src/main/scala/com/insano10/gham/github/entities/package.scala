@@ -19,11 +19,13 @@ package object entities {
     }
   }
 
-  case class UserSummary(val user: String,
-                         var totalPullRequestsRaised: Integer = 0,
-                         var totalPullRequestsCommentedOn: Integer = 0,
-                         var avgMinsToClose: Long = 0,
-                         var avgMinsToFirstComment: Long = 0) {
+  case class User(val username: String, val avatarUrl: String, val pullRequestSummary: UserPullRequestSummary)
+
+  case class UserPullRequestSummary(val user: String,
+                                    var totalPullRequestsRaised: Integer = 0,
+                                    var totalPullRequestsCommentedOn: Integer = 0,
+                                    var avgMinsToClose: Long = 0,
+                                    var avgMinsToFirstComment: Long = 0) {
 
     def pullRequestRaised(minsOpen: Long): Unit = {
       avgMinsToClose = ((avgMinsToClose * totalPullRequestsRaised) + minsOpen) / (totalPullRequestsRaised + 1)

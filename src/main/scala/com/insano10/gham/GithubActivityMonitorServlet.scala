@@ -24,7 +24,7 @@ class GithubActivityMonitorServlet extends GithubActivityMonitorStack
   private val monthsDataToRetrieve = 1
 
   private val pullRequestRepository = new PullRequestRepository(github)
-  private val userRepository = new UserRepository(pullRequestRepository)
+  private val userRepository = new UserRepository(github, pullRequestRepository)
   private val repoRepository = new RepositoryRepository(github, pullRequestRepository)
 
   before() {
@@ -43,7 +43,7 @@ class GithubActivityMonitorServlet extends GithubActivityMonitorStack
 
   get("/user") {
 
-    userRepository.getUserSummaries(repoList, monthsDataToRetrieve)
+    userRepository.getUsers(repoList, monthsDataToRetrieve)
   }
 
   get("/repository") {
