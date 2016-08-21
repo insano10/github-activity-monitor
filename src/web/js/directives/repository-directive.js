@@ -23,6 +23,14 @@
                     return pr.closed == null;
                 }).length;
 
+                var lastCommitMsg = scope.repository.mostRecentCommit.message;
+
+                if(lastCommitMsg.length > 80) {
+                    scope.truncatedLastCommitMessage = lastCommitMsg.substring(0, 80) + "...";
+                } else {
+                    scope.truncatedLastCommitMessage = lastCommitMsg;
+                }
+
                 scope.activeTab = 1;
 
                 scope.showTab = function(tabId) {

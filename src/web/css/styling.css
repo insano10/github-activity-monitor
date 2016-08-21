@@ -1,11 +1,21 @@
+.card-block {
+    height: 187px;
+}
+
+.card-footer {
+    height: 94px;
+}
+
 .dash-card {
     width: 300px;
+    height: 415px;
     float: left;
     margin: 30px;
 }
 
 .dash-card-title {
     padding-bottom: 10px;
+    height: 70px;
 }
 
 .dash-nav-tabs {
@@ -14,6 +24,37 @@
 
 .dash-nav-item {
     width: 138px;
+}
+
+.dash-last-commit {
+    border: 1px solid rgba(0,0,0,0.125);
+    border-radius: 4px;
+    padding: 5px 0 10px 0;
+    font-size: 12px;
+}
+
+.dash-last-commit-title {
+    text-align: left;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.dash-last-commit-message {
+    width: 230px;
+    margin-top: -3px;
+    text-align: left;
+}
+
+.dash-last-commit-item {
+    float: left;
+    padding-left: 10px;
+}
+
+.avatar-icon {
+    width: 32px;
+    height: 32px;
 }
 
 .dash-footer {

@@ -19,6 +19,8 @@ package object entities {
     }
   }
 
+  case class Commit(val owner: String, val avatarUrl: String, val url: String, val message: String)
+
   case class User(val username: String, val avatarUrl: String, val pullRequestSummary: UserPullRequestSummary)
 
   case class UserPullRequestSummary(val user: String,
@@ -40,7 +42,8 @@ package object entities {
 
   case class RepositorySummary(val name: String,
                                val pullRequests: List[PullRequest],
-                               val lastCommitTime: LocalDateTime)
+                               val lastPushTime: String,
+                               val mostRecentCommit: Commit)
 
   case class AppConfig(val monthsData: Integer)
 }

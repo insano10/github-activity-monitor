@@ -17,7 +17,16 @@
     <div class="card-block">
         <div ng-show="activeTab == 1">
             <h5 class="card-title">Last change pushed:</h5>
-            <h4>Mon 25th 2016</h4>
+            <h4>{{ repository.lastPushTime }}</h4>
+            <div class="dash-last-commit row">
+                <div class="dash-last-commit-title">Last commit:</div>
+                <div class="dash-last-commit-item">
+                    <img class="avatar-icon" ng-src="{{ repository.mostRecentCommit.avatarUrl }}" data-toggle="tooltip" title="{{ repository.mostRecentCommit.owner }}"/>
+                </div>
+                <div class="dash-last-commit-item dash-last-commit-message">
+                    <a ng-href="{{ repository.mostRecentCommit.url }}" target="_blank">{{ truncatedLastCommitMessage }}</a>
+                </div>
+            </div>
         </div>
         <div ng-show="activeTab == 2">
             <h4 class="card-title">Special title treatment2</h4>
