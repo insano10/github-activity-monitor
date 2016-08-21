@@ -45,5 +45,5 @@ package object entities {
                                val lastPushTime: String,
                                val mostRecentCommit: Commit)
 
-  case class AppConfig(val monthsData: Integer)
+  case class AppConfig(val organisation: String, val monthsData: Integer)
 }
