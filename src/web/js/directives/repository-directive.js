@@ -30,12 +30,6 @@
                 } else {
                     scope.truncatedLastCommitMessage = lastCommitMsg;
                 }
-
-                scope.activeTab = 1;
-
-                scope.showTab = function(tabId) {
-                    scope.activeTab = tabId;
-              }
             }
         };
     });
