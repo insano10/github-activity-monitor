@@ -3,7 +3,7 @@ package com.insano10.gham.repositories
 import java.text.SimpleDateFormat
 import java.util.Date
 
-import com.insano10.gham.github.entities.{Commit, RepositorySummary}
+import com.insano10.gham.entities.GithubEntities.{Commit, RepositorySummary}
 import org.kohsuke.github.{GHRepository, GitHub}
 
 import scala.collection.JavaConverters._

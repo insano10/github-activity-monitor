@@ -1,7 +1,9 @@
 package com.insano10.gham
 
-import com.insano10.gham.github.entities.AppConfig
-import com.insano10.gham.repositories.{PullRequestRepository, RepositoryRepository, UserRepository}
+import _root_.akka.actor.ActorSystem
+import com.insano10.gham.entities.AppConfig
+import com.insano10.gham.gocd.GoCDClient
+import com.insano10.gham.repositories.{RepositoryRepository, UserRepository, PullRequestRepository}
 import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.StrictLogging
 import org.json4s.{DefaultFormats, Formats}
@@ -11,7 +13,7 @@ import org.scalatra.json.JacksonJsonSupport
 
 import scala.collection.JavaConverters._
 
-class GithubActivityMonitorServlet extends GithubActivityMonitorStack
+class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivityMonitorStack
   with JacksonJsonSupport
   with CorsSupport
   with StrictLogging {
@@ -28,6 +30,9 @@ class GithubActivityMonitorServlet extends GithubActivityMonitorStack
   private val pullRequestRepository = new PullRequestRepository(github)
   private val userRepository = new UserRepository(github, pullRequestRepository)
   private val repoRepository = new RepositoryRepository(github, pullRequestRepository)
+  private val gocdClient = new GoCDClient(system, typesafeConfig.getString("gocd.baseUrl"),
+                                                  typesafeConfig.getString("gocd.username"),
+                                                  typesafeConfig.getString("gocd.password"))
 
   before() {
     contentType = formats("json")

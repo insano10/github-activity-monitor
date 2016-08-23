@@ -3,7 +3,7 @@ package com.insano10.gham.repositories
 import java.time.LocalDateTime
 import java.time.temporal.ChronoUnit
 
-import com.insano10.gham.github.entities.{User, PullRequest, UserPullRequestSummary}
+import com.insano10.gham.entities.GithubEntities.{PullRequest, User, UserPullRequestSummary}
 import org.kohsuke.github.GitHub
 
 import scala.concurrent.duration._

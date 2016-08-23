@@ -1,8 +1,8 @@
-package com.insano10.gham.github
+package com.insano10.gham.entities
 
 import java.time.LocalDateTime
 
-package object entities {
+object GithubEntities {
 
   case class Comment(val owner: String, val created: LocalDateTime)
 
@@ -15,7 +15,7 @@ package object entities {
                          var comments: List[Comment] = List()) {
 
     def addComment(comment: Comment): Unit = {
-      comments = comment::comments
+      comments = comment :: comments
     }
   }
 
@@ -36,7 +36,7 @@ package object entities {
 
     def pullRequestCommentedOn(minsTillFirstComment: Long): Unit = {
       avgMinsToFirstComment = ((avgMinsToFirstComment * totalPullRequestsCommentedOn) + minsTillFirstComment) / (totalPullRequestsCommentedOn + 1)
-      totalPullRequestsCommentedOn +=1
+      totalPullRequestsCommentedOn += 1
     }
   }
 
@@ -45,5 +45,4 @@ package object entities {
                                val lastPushTime: String,
                                val mostRecentCommit: Commit)
 
-  case class AppConfig(val organisation: String, val monthsData: Integer)
 }

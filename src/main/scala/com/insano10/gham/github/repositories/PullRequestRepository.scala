@@ -4,7 +4,7 @@ import java.io.IOException
 import java.time.{LocalDateTime, ZoneId}
 import java.util.Date
 
-import com.insano10.gham.github.entities.{Comment, PullRequest}
+import com.insano10.gham.entities.GithubEntities.{Comment, PullRequest}
 import org.kohsuke.github._
 
 import scala.collection.JavaConverters._

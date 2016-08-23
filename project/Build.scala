@@ -11,6 +11,7 @@ object GithubActivityMonitorBuild extends Build {
   val Version = "0.1.0-SNAPSHOT"
   val ScalaVersion = "2.11.8"
   val ScalatraVersion = "2.4.1"
+  val DispatchVersion = "0.11.3"
 
   lazy val project = Project (
     "github-activity-monitor",
@@ -31,6 +32,9 @@ object GithubActivityMonitorBuild extends Build {
         "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
         "org.scalatra" %% "scalatra-json" % ScalatraVersion,
         "org.json4s"   %% "json4s-jackson" % "3.3.0",
+        "com.typesafe.akka" %% "akka-actor" % "2.4.9",
+        "net.databinder.dispatch" %% "dispatch-core" % DispatchVersion,
+        "net.databinder.dispatch" %% "dispatch-json4s-native" % DispatchVersion,
         "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
         "ch.qos.logback" % "logback-classic" % "1.1.5" % "runtime",
         "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container;compile",
