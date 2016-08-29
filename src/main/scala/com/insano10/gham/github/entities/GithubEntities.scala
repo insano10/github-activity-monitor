@@ -43,6 +43,7 @@ object GithubEntities {
   case class RepositorySummary(val name: String,
                                val pullRequests: List[PullRequest],
                                val lastPushTime: String,
-                               val mostRecentCommit: Commit)
+                               val mostRecentCommit: Commit,
+                               val needsDeployment: Boolean)
 
 }

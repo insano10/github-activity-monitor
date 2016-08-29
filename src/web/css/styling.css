@@ -44,11 +44,11 @@ a {
 }
 
 .card-block {
-    height: 215px;
+    height: 210px;
 }
 
 .card-footer {
-    height: 94px;
+    height: 95px;
 }
 
 .dash-card {
@@ -57,9 +57,9 @@ a {
     float: left;
     margin: 30px;
     border-radius: 10px;
-    -webkit-box-shadow: 5px 5px 40px 0 rgba(0,0,0,0.75);
-    -moz-box-shadow: 5px 5px 40px 0 rgba(0,0,0,0.75);
-    box-shadow: 5px 5px 40px 0 rgba(0,0,0,0.75);
+    -webkit-box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.75);
+    -moz-box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.75);
+    box-shadow: 5px 5px 20px 0 rgba(0,0,0,0.75);
 }
 
 .dash-card-title {

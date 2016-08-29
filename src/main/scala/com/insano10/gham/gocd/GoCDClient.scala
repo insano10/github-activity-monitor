@@ -10,25 +10,19 @@ import scala.concurrent.{ExecutionContext, Future, Promise}
 import scala.util.{Failure, Success, Try}
 
 
-class GoCDClient(system: ActorSystem, baseUrl: String,  username: String, password: String) {
+class GoCDClient(system: ActorSystem, baseUrl: String, username: String, password: String) {
 
   implicit val formats = DefaultFormats
 
   def doesPipelineNeedDeployment(pipelineName: String): Future[Boolean] = {
 
-    getPipelineHistory(pipelineName).onComplete {
-      case Success(history) => {
+    getPipelineHistory(pipelineName).flatMap(history => {
 
-        val mostRecentPipeline = history.pipelines.head
-        val lastStageInMostRecentPipeline = mostRecentPipeline.stages.length - 1
-        val finalStageExecuted = mostRecentPipeline.stages(lastStageInMostRecentPipeline).scheduled
+      val mostRecentPipeline = history.pipelines.head
+      val lastStageInMostRecentPipeline = mostRecentPipeline.stages.length - 1
 
-        println(s"Success: Final stage in most recent pipeline executed? $finalStageExecuted")
-      }
-      case Failure(e) => println(s"Error: $e")
-    }
-
-    Future.successful(false)
+      Future.successful(!mostRecentPipeline.stages(lastStageInMostRecentPipeline).scheduled)
+    })
   }
 
   private def getPipelineHistory(pipelineName: String)(implicit ctx: ExecutionContext): Future[PipelineHistory] = {
