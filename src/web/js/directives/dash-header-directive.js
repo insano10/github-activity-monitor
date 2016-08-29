@@ -11,7 +11,7 @@
 
                 $http.get("http://localhost:8080/config")
                     .then(function(response) {
-                        $scope.organisation = response.data.organisation;
+                        $scope.boardName = response.data.boardName;
                     });
             }]
         };

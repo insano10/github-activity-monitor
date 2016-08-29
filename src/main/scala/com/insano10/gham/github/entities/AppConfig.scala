@@ -1,3 +1,3 @@
-package com.insano10.gham.entities
+package com.insano10.gham.github.entities
 
-case class AppConfig(val organisation: String, val monthsData: Integer)
+case class AppConfig(val boardName: String, val monthsData: Integer)

@@ -8,38 +8,25 @@ a {
 
 .app-header {
     height: 50px;
-    min-width: 550px;
-    background-color: #E3E7EF;
+    background-color: #3A507B;
+    color: white;
     text-align: center;
     padding: 5px;
     margin-bottom: 10px;
-    border-bottom: 2px solid #5F7298;
+    border-bottom: 2px solid black;
 }
 
 .app-header-inner {
-    margin-left: auto;
-    margin-right: auto;
-    width: 300px;
+    display: inline-block;
 }
 
-.app-header-mark {
-    margin-top: 1px;
+.app-header-icon {
+    font-size: 40px;
+    padding: 0 20px;
 }
 
-.app-header-logo {
-    width: 128px;
-    margin-top: -8px;
-}
-
-.organisation {
-    float: right;
-    margin-right: 20px;
-    border: 1px solid #5F7298;
-    padding: 2px 10px;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: #B9C2D5;
+.app-header-text {
+    font-size: 24px;
     margin-top: 3px;
 }
 

@@ -1,11 +1,10 @@
 package com.insano10.gham
 
 import _root_.akka.actor.ActorSystem
-import com.insano10.gham.entities.AppConfig
-import com.insano10.gham.github.NoOpDeploymentStatusRetriever
+import com.insano10.gham.github.entities.AppConfig
 import com.insano10.gham.github.repositories.RepositoryRepository
 import com.insano10.gham.gocd.{GoCDClient, GoCDDeploymentStatusRetriever}
-import com.insano10.gham.repositories.{PullRequestRepository, RepositoryRepository, UserRepository}
+import com.insano10.gham.repositories.{PullRequestRepository, UserRepository}
 import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.StrictLogging
 import org.json4s.{DefaultFormats, Formats}
@@ -27,8 +26,8 @@ class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivi
 
   private val typesafeConfig = ConfigFactory.load
   private val monthsDataToRetrieve = typesafeConfig.getInt("monthsDataToRetrieve")
-  private val organisation = typesafeConfig.getString("organisation")
-  private val appConfig = new AppConfig(organisation, monthsDataToRetrieve)
+  private val boardName = typesafeConfig.getString("boardName")
+  private val appConfig = new AppConfig(boardName, monthsDataToRetrieve)
   private val github = GitHub.connectUsingOAuth(typesafeConfig.getString("github.oauthToken"))
   private val repoList = typesafeConfig.getStringList("repos").asScala.toList
 
