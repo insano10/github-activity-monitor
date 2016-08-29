@@ -36,9 +36,10 @@ class RepositoryRepository(github: GitHub, pullRequestRepository: PullRequestRep
         groupBy(pr => pr.repositoryFullName).
         mapValues(prs => {
           val repo = github.getRepository(prs.head.repositoryFullName)
+          val hasOpenPullRequests = prs.exists(e => e.closed.isEmpty)
 
           new RepositorySummary(prs.head.repositoryName, prs, toFormattedDateTime(repo.getPushedAt), getMostRecentUserCommit(repo),
-            deploymentStatusRetriever.repositoryNeedsDeployment(repo.getFullName))
+            hasOpenPullRequests, deploymentStatusRetriever.repositoryNeedsDeployment(repo.getFullName))
         }).
         values.
         toList.

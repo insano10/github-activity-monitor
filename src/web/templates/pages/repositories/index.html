@@ -1,4 +1,4 @@
-<div ng-repeat="repository in repoCtrl.repositories">
+<div ng-repeat="repository in repoCtrl.repositories | orderBy: ['-needsDeployment', '-hasOpenPullRequests']">
     <repository repository="repository" months="{{ repoCtrl.months }}"></repository>
 </div>
 
