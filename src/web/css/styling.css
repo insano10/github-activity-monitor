@@ -51,6 +51,18 @@ a {
     height: 95px;
 }
 
+.deployment-icon {
+    z-index: 1;
+    position: absolute;
+    top: -20px;
+    left: 270px;
+    background-color: coral;
+    border-radius: 35px;
+    padding: 10px;
+    border: 1px solid #BE3E0E;
+    box-shadow: -2px 2px 7px;
+}
+
 .dash-card {
     width: 300px;
     height: 415px;

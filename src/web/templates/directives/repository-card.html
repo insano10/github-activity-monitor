@@ -1,4 +1,7 @@
 <div class="card text-xs-center dash-card">
+    <div class="deployment-icon" ng-if="repository.needsDeployment">
+        <img src="images/rocket.png" width="45" title="Needs deployment"/>
+    </div>
     <div class="card-header">
         <h2 class="dash-card-title">{{ repository.name }}</h2>
     </div>
