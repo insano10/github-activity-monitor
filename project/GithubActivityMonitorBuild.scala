@@ -1,6 +1,4 @@
 import com.earldouglas.xwp.JettyPlugin
-import com.mojolly.scalate.ScalatePlugin.ScalateKeys._
-import com.mojolly.scalate.ScalatePlugin._
 import org.scalatra.sbt._
 import sbt.Keys._
 import sbt._
@@ -16,7 +14,7 @@ object GithubActivityMonitorBuild extends Build {
   lazy val project = Project (
     "github-activity-monitor",
     file("."),
-    settings = ScalatraPlugin.scalatraSettings ++ scalateSettings ++ Seq(
+    settings = ScalatraPlugin.scalatraSettings  ++ Seq(
       organization := Organization,
       name := Name,
       version := Version,
@@ -39,19 +37,7 @@ object GithubActivityMonitorBuild extends Build {
         "ch.qos.logback" % "logback-classic" % "1.1.5" % "runtime",
         "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container;compile",
         "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided"
-      ),
-      scalateTemplateConfig in Compile <<= (sourceDirectory in Compile){ base =>
-        Seq(
-          TemplateConfig(
-            base / "webapp" / "WEB-INF" / "templates",
-            Seq.empty,  /* default imports should be added here */
-            Seq(
-              Binding("context", "_root_.org.scalatra.scalate.ScalatraRenderContext", importMembers = true, isImplicit = true)
-            ),  /* add extra bindings here */
-            Some("templates")
-          )
-        )
-      }
+      )
     )
   ).enablePlugins(JettyPlugin)
 }
