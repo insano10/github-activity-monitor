@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat
 
 import com.insano10.gham.entities.GithubEntities.{Commit, RepositorySummary}
 import com.insano10.gham.github.{DeploymentStatusRetriever, NoOpDeploymentStatusRetriever}
+import com.typesafe.scalalogging.StrictLogging
 import org.kohsuke.github.{GHRepository, GitHub}
 
 import scala.collection.JavaConverters._
@@ -13,7 +14,7 @@ import scalacache.ScalaCache
 import scalacache.guava.GuavaCache
 import scalacache.memoization._
 
-class RepositoryRepository(github: GitHub, pullRequestRepository: PullRequestRepository) {
+class RepositoryRepository(github: GitHub, pullRequestRepository: PullRequestRepository) extends StrictLogging {
 
   implicit val cache = ScalaCache(GuavaCache())
 
@@ -31,7 +32,7 @@ class RepositoryRepository(github: GitHub, pullRequestRepository: PullRequestRep
       val repositorySummaries = repositories.map(repoFullName => {
 
         val repo = github.getRepository(repoFullName)
-        val pullRequests = pullRequestRepository.getPullRequests(repoFullName, daysDataToRetrieve)
+        val pullRequests = pullRequestRepository.getPullRequests(repo, daysDataToRetrieve)
 
         val openPullRequests = pullRequests.count(e => e.closedTimeMs.isEmpty)
 

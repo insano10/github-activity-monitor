@@ -4,6 +4,7 @@ import java.io.IOException
 import java.util.Date
 
 import com.insano10.gham.entities.GithubEntities.{Comment, PullRequest}
+import com.typesafe.scalalogging.StrictLogging
 import org.kohsuke.github._
 
 import scala.collection.JavaConverters._
@@ -12,11 +13,11 @@ import scalacache.ScalaCache
 import scalacache.guava.GuavaCache
 import scalacache.memoization._
 
-class PullRequestRepository(github: GitHub) {
+class PullRequestRepository(github: GitHub) extends StrictLogging {
 
   implicit val cache = ScalaCache(GuavaCache())
 
-  def getPullRequests(repository: String, daysDataToRetrieve: Int): List[PullRequest] = {
+  def getPullRequests(repository: GHRepository, daysDataToRetrieve: Int): List[PullRequest] = {
 
     memoizeSync(30 minutes) {
 
@@ -25,14 +26,13 @@ class PullRequestRepository(github: GitHub) {
     }
   }
 
-  def fetchPullRequests(repository: String): PagedIterable[GHPullRequest] = {
+  def fetchPullRequests(repository: GHRepository): PagedIterable[GHPullRequest] = {
 
     try {
-      val repo = github.getRepository(repository)
-      repo.queryPullRequests.base("master").direction(GHDirection.DESC).state(GHIssueState.ALL).list.withPageSize(10)
+      repository.queryPullRequests.base("master").direction(GHDirection.DESC).state(GHIssueState.ALL).list.withPageSize(10)
     }
     catch {
-      case e: IOException => throw new RuntimeException("Failed to get pull requests from repository " + repository, e)
+      case e: IOException => throw new RuntimeException("Failed to get pull requests from repository " + repository.getFullName, e)
 
     }
   }

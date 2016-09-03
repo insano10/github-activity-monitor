@@ -16,7 +16,8 @@ class UserRepository(github: GitHub, pullRequestRepository: PullRequestRepositor
 
     memoizeSync(30 minutes) {
 
-      val pullRequests = repositories.flatMap(repo => {
+      val pullRequests = repositories.flatMap(repoFullName => {
+        val repo = github.getRepository(repoFullName)
         pullRequestRepository.getPullRequests(repo, daysDataToRetrieve)
       })
 
