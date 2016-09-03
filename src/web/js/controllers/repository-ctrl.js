@@ -14,7 +14,7 @@
 
         $http.get("http://localhost:8080/config")
             .then(function(response) {
-                ctrl.months = response.data.monthsData;
+                ctrl.days = response.data.daysData;
             });
     }]);
 

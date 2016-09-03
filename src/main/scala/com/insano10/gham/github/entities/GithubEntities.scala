@@ -1,17 +1,15 @@
 package com.insano10.gham.entities
 
-import java.time.LocalDateTime
-
 object GithubEntities {
 
-  case class Comment(val owner: String, val created: LocalDateTime)
+  case class Comment(val owner: String, val createdTimeMs: Long)
 
   case class PullRequest(val repositoryName: String,
                          val repositoryFullName: String,
                          val owner: String,
                          val title: String,
-                         val created: LocalDateTime,
-                         val closed: Option[LocalDateTime],
+                         val createdTimeMs: Long,
+                         val closedTimeMs: Option[Long],
                          var comments: List[Comment] = List()) {
 
     def addComment(comment: Comment): Unit = {
@@ -42,7 +40,7 @@ object GithubEntities {
 
   case class RepositorySummary(val name: String,
                                val pullRequests: List[PullRequest],
-                               val lastPushTime: String,
+                               val lastPushTimeMs: Long,
                                val mostRecentCommit: Commit,
                                val openPullRequests: Int,
                                val needsDeployment: Boolean)

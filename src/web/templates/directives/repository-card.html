@@ -8,7 +8,7 @@
     <div class="card-block">
         <div>
             <h5 class="card-title">Last change pushed:</h5>
-            <h4>{{ repository.lastPushTime }}</h4>
+            <h4>{{ repository.lastPushTimeMs | date:"EEE dd MMM yyyy" }}</h4>
             <div class="dash-last-commit row">
                 <div class="dash-last-commit-title">Last commit:</div>
                 <div class="dash-last-commit-item">
@@ -22,7 +22,7 @@
     </div>
     <div class="card-footer dash-footer">
         <div class="dash-footer-text-top">
-            Pull requests in the last {{ months }} months:
+            Pull requests in the last {{ days }} days:
         </div>
         <div>
             <div class="col-xs-6">

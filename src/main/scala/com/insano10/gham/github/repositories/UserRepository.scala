@@ -1,7 +1,4 @@
-package com.insano10.gham.repositories
-
-import java.time.LocalDateTime
-import java.time.temporal.ChronoUnit
+package com.insano10.gham.github.repositories
 
 import com.insano10.gham.entities.GithubEntities.{PullRequest, User, UserPullRequestSummary}
 import org.kohsuke.github.GitHub
@@ -15,11 +12,11 @@ class UserRepository(github: GitHub, pullRequestRepository: PullRequestRepositor
 
   implicit val cache = ScalaCache(GuavaCache())
 
-  def getUsers(repositories: List[String], monthsDataToRetrieve: Long): List[User] = {
+  def getUsers(repositories: List[String], daysDataToRetrieve: Int): List[User] = {
 
     memoizeSync(30 minutes) {
 
-      val pullRequests = pullRequestRepository.getPullRequests(repositories, monthsDataToRetrieve)
+      val pullRequests = pullRequestRepository.getPullRequests(repositories, daysDataToRetrieve)
       buildUsers(pullRequests)
     }
   }
@@ -31,11 +28,11 @@ class UserRepository(github: GitHub, pullRequestRepository: PullRequestRepositor
     pullRequests.foreach(pullRequest => {
 
       val user = getUser(pullRequest.owner, users)
-      val currentOpenEndDate = pullRequest.closed match {
-        case None => LocalDateTime.now()
+      val currentOpenEndTimeMs = pullRequest.closedTimeMs match {
+        case None => System.currentTimeMillis()
         case Some(date) => date
       }
-      val minsOpen: Long = pullRequest.created.until(currentOpenEndDate, ChronoUnit.MINUTES)
+      val minsOpen = (currentOpenEndTimeMs - pullRequest.createdTimeMs) * 60 * 60
 
       user.pullRequestSummary.pullRequestRaised(minsOpen)
       var commentersSeen = Set[String]()
@@ -45,7 +42,8 @@ class UserRepository(github: GitHub, pullRequestRepository: PullRequestRepositor
         if (!commentersSeen.contains(comment.owner) && !(comment.owner == pullRequest.owner)) {
 
           val commenterUser = getUser(comment.owner, users)
-          val minsTillFirstComment: Long = pullRequest.created.until(comment.created, ChronoUnit.MINUTES)
+          val minsTillFirstComment: Long = (comment.createdTimeMs - pullRequest.createdTimeMs) * 60 * 60
+
           commenterUser.pullRequestSummary.pullRequestCommentedOn(minsTillFirstComment)
           commentersSeen += comment.owner
           users = users.updated(comment.owner, commenterUser)

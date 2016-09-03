@@ -1,7 +1,6 @@
-package com.insano10.gham.repositories
+package com.insano10.gham.github.repositories
 
 import java.io.IOException
-import java.time.{LocalDateTime, ZoneId}
 import java.util.Date
 
 import com.insano10.gham.entities.GithubEntities.{Comment, PullRequest}
@@ -17,13 +16,13 @@ class PullRequestRepository(github: GitHub) {
 
   implicit val cache = ScalaCache(GuavaCache())
 
-  def getPullRequests(repositories: List[String], monthsDataToRetrieve: Long): List[PullRequest] = {
+  def getPullRequests(repositories: List[String], daysDataToRetrieve: Int): List[PullRequest] = {
 
     memoizeSync(30 minutes) {
 
       repositories.flatMap(repo => {
         val pullRequests = fetchPullRequests(repo)
-        transform(pullRequests, monthsDataToRetrieve)
+        transform(pullRequests, daysDataToRetrieve)
       })
     }
   }
@@ -40,24 +39,24 @@ class PullRequestRepository(github: GitHub) {
     }
   }
 
-  def transform(pullRequests: PagedIterable[GHPullRequest], monthsRetrieved: Long): List[PullRequest] = {
+  def transform(pullRequests: PagedIterable[GHPullRequest], daysRetrieved: Int): List[PullRequest] = {
 
-    val minDate: LocalDateTime = LocalDateTime.now.minusMonths(monthsRetrieved)
+    val minTime = System.currentTimeMillis() - (daysRetrieved * 24 * 60 * 60 * 1000L)
 
     try {
 
       pullRequests.iterator().asScala.
-        takeWhile(pr => toLocalDateTime(pr.getCreatedAt).isAfter(minDate)).
-        map(pr => {
+        takeWhile(pr => pr.getCreatedAt.getTime > minTime).
+    map(pr => {
           val pullRequest: PullRequest = new PullRequest(pr.getRepository.getName,
             pr.getRepository.getFullName,
             pr.getUser.getLogin,
             pr.getTitle,
-            toLocalDateTime(pr.getCreatedAt),
-            toOptionalLocalDateTime(pr.getClosedAt))
+            pr.getCreatedAt.getTime,
+            dateToOptMillis(pr.getClosedAt))
 
           for (comment <- pr.getComments.asScala) {
-            pullRequest.addComment(new Comment(comment.getUser.getLogin, toLocalDateTime(comment.getUpdatedAt)))
+            pullRequest.addComment(new Comment(comment.getUser.getLogin, comment.getUpdatedAt.getTime))
           }
           pullRequest
         }).
@@ -68,12 +67,9 @@ class PullRequestRepository(github: GitHub) {
     }
   }
 
-  private def toLocalDateTime(date: Date): LocalDateTime = {
-    LocalDateTime.ofInstant(date.toInstant, ZoneId.of("UTC"))
+  def dateToOptMillis(date: Date) = date match {
+    case null => None
+    case x => Some(x.getTime)
   }
 
-  private def toOptionalLocalDateTime(date: Date): Option[LocalDateTime] = date match {
-    case null => None
-    case d => Some(toLocalDateTime(d))
-  }
 }
