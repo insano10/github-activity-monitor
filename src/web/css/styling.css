@@ -4,6 +4,7 @@ body {
 
 a {
     color: #3A507B;
+    cursor: pointer;
 }
 
 .app-header {
@@ -120,8 +121,11 @@ a {
 }
 
 .dash-pr-count-container.pr-open {
-    color: crimson;
     border-left: 1px solid rgba(0,0,0,0.125);
+}
+
+.pr-open a {
+    color: crimson;
 }
 
 .dash-pr-count-container.pr-closed {
@@ -129,7 +133,7 @@ a {
 }
 
 .pr-open-warning {
-    background-color: #FFEAD9;
+    background-color: #FFD3C2;
 }
 
 .dash-footer-text-top {

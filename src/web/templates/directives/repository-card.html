@@ -3,7 +3,9 @@
         <img src="images/rocket.png" width="45" title="Needs deployment"/>
     </div>
     <div class="card-header">
-        <h2 class="dash-card-title">{{ repository.name }}</h2>
+        <h2 class="dash-card-title">
+            <a ng-href="{{ repository.url }}" target="_blank">{{ repository.name }}</a>
+        </h2>
     </div>
     <div class="card-block">
         <div>
@@ -33,7 +35,7 @@
             </div>
             <div class="col-xs-6">
                 <div class="dash-pr-count-container pr-open" ng-class="{'pr-open-warning': openPullRequests > 0 }">
-                    {{ openPullRequests }}
+                    <a ng-href="{{ repository.url }}/pulls" target="_blank">{{ openPullRequests }}</a>
                 </div>
                 <div class="dash-footer-text-bottom">open</div>
             </div>
