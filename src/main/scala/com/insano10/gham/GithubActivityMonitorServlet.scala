@@ -39,10 +39,11 @@ class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivi
 
     if(typesafeConfig.hasPath("gocd")) {
 
-      val gocdClient = new GoCDClient(system, typesafeConfig.getString("gocd.baseUrl"),
+      val gocdUrl = typesafeConfig.getString("gocd.baseUrl")
+      val gocdClient = new GoCDClient(system, gocdUrl,
                                               typesafeConfig.getString("gocd.username"),
                                               typesafeConfig.getString("gocd.password"))
-      val goCDDeploymentStatusRetriever = new GoCDDeploymentStatusRetriever(gocdClient, typesafeConfig)
+      val goCDDeploymentStatusRetriever = new GoCDDeploymentStatusRetriever(gocdClient, typesafeConfig, gocdUrl)
 
       repoRepository.setDeploymentStatusRetriever(goCDDeploymentStatusRetriever)
     }

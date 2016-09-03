@@ -44,6 +44,7 @@ object GithubEntities {
                                val lastPushTimeMs: Long,
                                val mostRecentCommit: Commit,
                                val openPullRequests: Int,
-                               val needsDeployment: Boolean)
+                               val needsDeployment: Boolean,
+                               val deploymentUrl: String)
 
 }

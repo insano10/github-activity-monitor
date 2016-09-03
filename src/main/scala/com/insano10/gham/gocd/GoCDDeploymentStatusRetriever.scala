@@ -10,7 +10,7 @@ import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 import scala.util.{Failure, Success, Try}
 
-class GoCDDeploymentStatusRetriever(gocdClient: GoCDClient, config: Config) extends DeploymentStatusRetriever with StrictLogging {
+class GoCDDeploymentStatusRetriever(gocdClient: GoCDClient, config: Config, gocdUrl: String) extends DeploymentStatusRetriever with StrictLogging {
 
   private val repoPipelineMap = config.getObject("gocd.repoPipelineMap")
 
@@ -20,5 +20,14 @@ class GoCDDeploymentStatusRetriever(gocdClient: GoCDClient, config: Config) exte
       case Success(value) => Await.result(gocdClient.doesPipelineNeedDeployment(value), Duration.apply(5, TimeUnit.SECONDS))
       case Failure(err) => logger.error(s"Missing gocd.repoPipelineMap value for repository $repoName"); false
     }
+  }
+
+  override def deploymentUrl(repoName: String): String = {
+
+    Try(repoPipelineMap.toConfig.getString(repoName)) match {
+      case Success(value) => s"$gocdUrl/go/tab/pipeline/history/$value"
+      case Failure(err) => logger.error(s"Missing gocd.repoPipelineMap value for repository $repoName"); "#"
+    }
+
   }
 }

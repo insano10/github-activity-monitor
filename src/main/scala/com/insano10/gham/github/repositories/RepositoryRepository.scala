@@ -35,8 +35,15 @@ class RepositoryRepository(github: GitHub, pullRequestRepository: PullRequestRep
 
         val openPullRequests = pullRequests.count(e => e.closedTimeMs.isEmpty)
 
-        new RepositorySummary(repo.getName,repo.getHtmlUrl.toString, pullRequests, repo.getPushedAt.getTime,
-          getMostRecentUserCommit(repo), openPullRequests, deploymentStatusRetriever.repositoryNeedsDeployment(repo.getFullName))
+        new RepositorySummary(
+          repo.getName,
+          repo.getHtmlUrl.toString,
+          pullRequests,
+          repo.getPushedAt.getTime,
+          getMostRecentUserCommit(repo),
+          openPullRequests,
+          deploymentStatusRetriever.repositoryNeedsDeployment(repoFullName),
+          deploymentStatusRetriever.deploymentUrl(repoFullName))
       }).sortBy(repo => repo.name)
 
       Future.successful(repositorySummaries)
