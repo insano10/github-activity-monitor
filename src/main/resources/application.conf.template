@@ -1,0 +1,31 @@
+//copy this file to application.conf
+
+//OAuth token to access github
+github {
+  oauthToken = "xxx"
+}
+
+//List of github repositories you want to display
+repos = [
+  "user/my-repo",
+  "user/my-repo-2"
+]
+
+//Optional GoCD config
+gocd {
+  baseUrl = "http://my-gocd.com"
+  username = "user",
+  password = "password"
+
+  //Mapping from github repository to GoCD pipeline name
+  repoPipelineMap {
+    "user/my-repo" = "my-repo-pipeline",
+    "user/my-repo-2" = "repo-2-pipeline-new"
+  }
+}
+
+//Set the board display name
+boardName = "My Board"
+
+//Configure the amount of data retrieved and summarised from github
+daysDataToRetrieve = 30

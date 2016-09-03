@@ -1,17 +1,5 @@
 # github-activity-monitor
 
-Summarise user activity on github repositories.
-
-Add an application.conf file:
-
-    github {
-      oauthToken = "myOauthTokenForGithub"
-    }
-    
-    repos = [
-      "yourOrganisation/githubRepo",
-      "yourOrganisation/anotherGithubRepo"
-    ]
-    
-    organisation = "yourOrganisation"
-    monthsDataToRetrieve = 2
+Summarise the status and latest activity of github repositories.
+Optionally configure a GoCD server to included deployment status tracking
+See application.conf.template for config options
