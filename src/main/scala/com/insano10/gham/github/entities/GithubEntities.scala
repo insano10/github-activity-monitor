@@ -44,7 +44,7 @@ object GithubEntities {
                                val pullRequests: List[PullRequest],
                                val lastPushTime: String,
                                val mostRecentCommit: Commit,
-                               val hasOpenPullRequests: Boolean,
+                               val openPullRequests: Int,
                                val needsDeployment: Boolean)
 
 }
