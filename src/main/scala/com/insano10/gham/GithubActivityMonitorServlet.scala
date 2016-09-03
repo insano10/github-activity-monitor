@@ -13,6 +13,7 @@ import org.scalatra.json.JacksonJsonSupport
 
 import scala.collection.JavaConverters._
 import scala.concurrent.ExecutionContext
+import scala.concurrent.duration._
 
 class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivityMonitorStack
   with JacksonJsonSupport
@@ -37,7 +38,7 @@ class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivi
   override def initialize(config: ConfigT): Unit = {
     super.initialize(config)
 
-    if(typesafeConfig.hasPath("gocd")) {
+    if (typesafeConfig.hasPath("gocd")) {
 
       val gocdUrl = typesafeConfig.getString("gocd.baseUrl")
       val gocdClient = new GoCDClient(system, gocdUrl,
@@ -47,6 +48,12 @@ class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivi
 
       repoRepository.setDeploymentStatusRetriever(goCDDeploymentStatusRetriever)
     }
+
+    primeCaches()
+  }
+
+  def primeCaches() = {
+    system.scheduler.schedule(0 minutes, 1 minute)(repoRepository.getRepositorySummaries(repoList, daysDataToRetrieve))
   }
 
   before() {
@@ -70,18 +77,10 @@ class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivi
 
   get("/repository") {
 
-    new AsyncResult() {val is =
-      repoRepository.getRepositorySummaries(repoList, daysDataToRetrieve)
+    new AsyncResult() {
+      val is =
+        repoRepository.getRepositorySummaries(repoList, daysDataToRetrieve)
     }
-
-    //todo: sort by last push time (make field a proper date and format in client
-//    "[" +
-//      "{\"name\": \"repository-two\",\"pullRequests\": [{\"repositoryName\": \"repository-two\",\"repositoryFullName\": \"insano10/repository-two\",\"owner\": \"insano10\",\"title\": \"Awesome pull request2\",\"created\": \"2016-08-15T12:00:00Z\",\"closed\":  \"2016-08-15T12:05:00Z\", \"comments\": []}],\"lastPushTime\": \"Mon 2 April 2016\",\"mostRecentCommit\": {\"owner\": \"insano10\",\"avatarUrl\": \"https://avatars0.githubusercontent.com/u/7420159?v=3&s=460\",\"url\": \"http://google.com\",\"message\": \"commit this stuff2\"},\"hasOpenPullRequests\": false,\"needsDeployment\": false}," +
-//      "{\"name\": \"repository-four\",\"pullRequests\": [{\"repositoryName\": \"repository-four\",\"repositoryFullName\": \"insano10/repository-four\",\"owner\": \"insano10\",\"title\": \"Awesome pull request2\",\"created\": \"2016-08-15T12:00:00Z\",\"closed\":  \"2016-08-15T12:05:00Z\", \"comments\": []}],\"lastPushTime\": \"Mon 5 April 2016\",\"mostRecentCommit\": {\"owner\": \"insano10\",\"avatarUrl\": \"https://avatars0.githubusercontent.com/u/7420159?v=3&s=460\",\"url\": \"http://google.com\",\"message\": \"commit this stuff2\"},\"hasOpenPullRequests\": false,\"needsDeployment\": false}," +
-//      "{\"name\": \"repository-one\",\"pullRequests\": [{\"repositoryName\": \"repository-one\",\"repositoryFullName\": \"insano10/repository-one\",\"owner\": \"insano10\",\"title\": \"Awesome pull request\",\"created\": \"2016-08-15T12:00:00Z\",\"closed\":  \"2016-08-15T12:05:00Z\", \"comments\": []}],\"lastPushTime\": \"Mon 2 April 2016\",\"mostRecentCommit\": {\"owner\": \"insano10\",\"avatarUrl\": \"https://avatars0.githubusercontent.com/u/7420159?v=3&s=460\",\"url\": \"http://google.com\",\"message\": \"commit this stuff\"},\"hasOpenPullRequests\": false,\"needsDeployment\": true}, " +
-//      "{\"name\": \"repository-three\",\"pullRequests\": [{\"repositoryName\": \"repository-three\",\"repositoryFullName\": \"insano10/repository-three\",\"owner\": \"insano10\",\"title\": \"Awesome pull request\",\"created\": \"2016-08-15T12:00:00Z\", \"comments\": []}],\"lastPushTime\": \"Mon 2 April 2016\",\"mostRecentCommit\": {\"owner\": \"insano10\",\"avatarUrl\": \"https://avatars0.githubusercontent.com/u/7420159?v=3&s=460\",\"url\": \"http://google.com\",\"message\": \"commit this stuff\"},\"hasOpenPullRequests\": true,\"needsDeployment\": false}" +
-//      "]"
-    
   }
 
   get("/config") {
