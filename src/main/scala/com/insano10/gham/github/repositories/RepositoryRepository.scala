@@ -28,20 +28,16 @@ class RepositoryRepository(github: GitHub, pullRequestRepository: PullRequestRep
 
     memoizeSync(30 minutes) {
 
-      val pullRequests = pullRequestRepository.getPullRequests(repositories, daysDataToRetrieve)
+      val repositorySummaries = repositories.map(repoFullName => {
 
-      val repositorySummaries = pullRequests.
-        groupBy(pr => pr.repositoryFullName).
-        mapValues(prs => {
-          val repo = github.getRepository(prs.head.repositoryFullName)
-          val openPullRequests = prs.count(e => e.closedTimeMs.isEmpty)
+        val repo = github.getRepository(repoFullName)
+        val pullRequests = pullRequestRepository.getPullRequests(repoFullName, daysDataToRetrieve)
 
-          new RepositorySummary(prs.head.repositoryName, prs, repo.getPushedAt.getTime, getMostRecentUserCommit(repo),
-            openPullRequests, deploymentStatusRetriever.repositoryNeedsDeployment(repo.getFullName))
-        }).
-        values.
-        toList.
-        sortBy(repo => repo.name)
+        val openPullRequests = pullRequests.count(e => e.closedTimeMs.isEmpty)
+
+        new RepositorySummary(repo.getName, pullRequests, repo.getPushedAt.getTime, getMostRecentUserCommit(repo),
+          openPullRequests, deploymentStatusRetriever.repositoryNeedsDeployment(repo.getFullName))
+      }).sortBy(repo => repo.name)
 
       Future.successful(repositorySummaries)
     }

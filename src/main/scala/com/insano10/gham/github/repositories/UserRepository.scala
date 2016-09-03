@@ -16,7 +16,10 @@ class UserRepository(github: GitHub, pullRequestRepository: PullRequestRepositor
 
     memoizeSync(30 minutes) {
 
-      val pullRequests = pullRequestRepository.getPullRequests(repositories, daysDataToRetrieve)
+      val pullRequests = repositories.flatMap(repo => {
+        pullRequestRepository.getPullRequests(repo, daysDataToRetrieve)
+      })
+
       buildUsers(pullRequests)
     }
   }
@@ -57,7 +60,7 @@ class UserRepository(github: GitHub, pullRequestRepository: PullRequestRepositor
 
   private def getUser(username: String, users: Map[String, User]): User = {
 
-    if(users.contains(username)) {
+    if (users.contains(username)) {
       users(username)
     } else {
       val user = github.getUser(username)

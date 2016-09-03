@@ -16,14 +16,12 @@ class PullRequestRepository(github: GitHub) {
 
   implicit val cache = ScalaCache(GuavaCache())
 
-  def getPullRequests(repositories: List[String], daysDataToRetrieve: Int): List[PullRequest] = {
+  def getPullRequests(repository: String, daysDataToRetrieve: Int): List[PullRequest] = {
 
     memoizeSync(30 minutes) {
 
-      repositories.flatMap(repo => {
-        val pullRequests = fetchPullRequests(repo)
-        transform(pullRequests, daysDataToRetrieve)
-      })
+      val pullRequests = fetchPullRequests(repository)
+      transform(pullRequests, daysDataToRetrieve)
     }
   }
 
@@ -47,7 +45,7 @@ class PullRequestRepository(github: GitHub) {
 
       pullRequests.iterator().asScala.
         takeWhile(pr => pr.getCreatedAt.getTime > minTime).
-    map(pr => {
+        map(pr => {
           val pullRequest: PullRequest = new PullRequest(pr.getRepository.getName,
             pr.getRepository.getFullName,
             pr.getUser.getLogin,
