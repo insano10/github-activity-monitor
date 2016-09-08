@@ -15,7 +15,7 @@
                 controllerAs: "repoCtrl"
             })
             .when("/", {
-                redirectTo: '/users'
+                redirectTo: '/repositories'
             })
             .otherwise({
                            redirectTo: "/"

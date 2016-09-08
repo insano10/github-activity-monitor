@@ -56,10 +56,6 @@ class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivi
     system.scheduler.schedule(0 minutes, 1 minute)(repoRepository.getRepositorySummaries(repoList, daysDataToRetrieve))
   }
 
-  before() {
-    contentType = formats("json")
-  }
-
   errorHandler = {
     case t =>
       logger.error("Error in route", t)
@@ -68,6 +64,12 @@ class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivi
 
   options("/*") {
     response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"))
+  }
+
+  get("/") {
+
+    contentType = "text/html"
+    html.Index.render()
   }
 
   get("/user") {
