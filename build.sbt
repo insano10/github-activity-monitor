@@ -41,6 +41,5 @@ libraryDependencies ++= Seq(
 )
 
 resolvers += Classpaths.typesafeReleases
+resolvers += Resolver.jcenterRepo
 resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
-
-//sbt twirlCompileTemplates
