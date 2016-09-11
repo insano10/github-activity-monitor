@@ -31,6 +31,9 @@ EXPOSE 8080
 # Define working directory
 WORKDIR /app
 
+# pre-compile the project to download dependencies
+RUN sbt compile
+
 
 CMD ["sbt", "run"]
 
