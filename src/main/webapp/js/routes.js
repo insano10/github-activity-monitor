@@ -1,6 +1,6 @@
 (function ()
 {
-    angular.module("myApp").config(["$routeProvider", function ($routeProvider)
+    angular.module("myApp").config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider)
     {
 
         $routeProvider
@@ -18,8 +18,10 @@
                 redirectTo: '/repositories'
             })
             .otherwise({
-                           redirectTo: "/"
-                       })
+               redirectTo: "/"
+           });
+
+        $locationProvider.html5Mode(true);
     }]);
 
 })();
