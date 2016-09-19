@@ -1,5 +1,7 @@
 import com.earldouglas.xwp.JettyPlugin
 import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
+import com.typesafe.sbt.packager.docker.{Cmd, ExecCmd}
+import NativePackagerHelper._
 import sbt.Keys._
 import sbt._
 
@@ -43,3 +45,33 @@ libraryDependencies ++= Seq(
 resolvers += Classpaths.typesafeReleases
 resolvers += Resolver.jcenterRepo
 resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
+
+
+
+//add config files to docker stage
+mappings in Universal += file("nginx.conf") -> "nginx.conf"
+mappings in Universal += file("docker-run.sh") -> "docker-run.sh"
+
+//add webapp directory and all content into docker stage
+mappings in Universal <++= (packageBin in Compile, target ) map { (_, target) =>
+  val dir = target / "webapp"
+  (dir.*** --- dir) pair rebase(dir, "static")
+}
+
+dockerCommands := Seq(
+  Cmd("FROM", "java:8"),
+  Cmd("MAINTAINER", "insano10 <jdommett@gmail.com>"),
+  Cmd("ENV", "APP_PORT", "8090"),
+  Cmd("WORKDIR", "/opt/docker"),
+  Cmd("ADD", "opt /opt"),
+  Cmd("EXPOSE", "8080"),
+
+  Cmd("RUN", "apt-get", "update"),
+  Cmd("RUN", "apt-get", "install", "-y", "nginx"),
+  Cmd("ADD", "opt/docker/nginx.conf", "/etc/nginx/nginx.conf"),
+  Cmd("ADD", "opt/docker/docker-run.sh", "/opt/docker/bin/docker-run.sh"),
+
+  Cmd("RUN", "[\"chown\", \"-R\", \"daemon:daemon\", \".\"]"),
+  Cmd("ENTRYPOINT", "[\"bin/docker-run.sh\"]"),
+  ExecCmd("CMD")
+)

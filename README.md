@@ -12,8 +12,8 @@ through sbt:
 
 or with docker:
 
-    > docker build -t github-activity-monitor .
-    > docker run -p 8080:8080 github-activity-monitor
+    > sbt docker:publishLocal
+    > docker run -p 8080:8080 github-activity-monitor:0.1.0-SNAPSHOT
 
 Handy docker commands while testing:
 
@@ -23,3 +23,6 @@ Handy docker commands while testing:
     # delete all untagged images
     > docker rmi $(docker images -q --filter "dangling=true")
     
+
+The webserver runs on port 8080 through sbt but 8090 through docker.
+Nginx is then running on port 8080 to proxy through to the webserver or serve static content based on the URL
