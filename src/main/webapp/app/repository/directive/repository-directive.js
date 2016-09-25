@@ -6,7 +6,7 @@
     {
         return {
             restrict:     'E',
-            templateUrl:  'templates/directives/repository-card.html',
+            templateUrl:  'app/repository/directive/repository-card.html',
             scope: {
                 repository: "=",
                 days: "@"

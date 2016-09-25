@@ -6,7 +6,7 @@
     {
         return {
             restrict:     'E',
-            templateUrl:  'templates/directives/dash-header.html',
+            templateUrl:  'app/dash-header/directive/dash-header.html',
             controller: ['$scope', '$http', function($scope, $http){
 
                 $http.get("http://localhost:8080/api/config")

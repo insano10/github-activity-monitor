@@ -5,12 +5,12 @@
 
         $routeProvider
             .when("/users", {
-                templateUrl:  "templates/pages/users/index.html",
+                templateUrl:  "app/user/user-view.html",
                 controller:   "UserController",
                 controllerAs: "userCtrl"
             })
             .when("/repositories", {
-                templateUrl:  "templates/pages/repositories/index.html",
+                templateUrl:  "app/repository/repository-view.html",
                 controller:   "RepositoryController",
                 controllerAs: "repoCtrl"
             })
