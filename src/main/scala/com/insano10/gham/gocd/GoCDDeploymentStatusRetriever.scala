@@ -32,7 +32,7 @@ class GoCDDeploymentStatusRetriever(gocdClient: GoCDClient, config: Config, gocd
 
   private def getDeploymentOwner(ownerFullName: String): DeploymentOwner =
     github.searchUsers().q(ownerFullName).in("fullname").list().withPageSize(1).asList().asScala.toList match {
-      case x :: xs if x.getName == ownerFullName => DeploymentOwner(ownerFullName, x.getAvatarUrl)
+      case x :: xs => DeploymentOwner(ownerFullName, x.getAvatarUrl)
       case _ => DeploymentOwner("Unknown", "#")
     }
 

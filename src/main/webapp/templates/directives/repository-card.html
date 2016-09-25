@@ -1,6 +1,7 @@
 <div class="card text-xs-center dash-card">
     <div class="deployment-icon" ng-if="repository.deploymentStatus.needsDeployment">
-        <a ng-href="{{ repository.deploymentUrl }}" target="_blank"><img src="images/rocket.png" width="45" title="Needs deployment"/></a>
+        <a ng-href="{{ repository.deploymentUrl }}" target="_blank"><img class="deployment-icon-image" src="images/rocket.png" title="Needs deployment"/></a>
+        <img class="avatar-icon" ng-src="{{ repository.deploymentStatus.deploymentOwner.avatarUrl }}" data-toggle="tooltip" title="{{ repository.deploymentStatus.deploymentOwner.user }}"/>
     </div>
     <div class="card-header">
         <h2 class="dash-card-title">

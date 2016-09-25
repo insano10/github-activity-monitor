@@ -51,6 +51,19 @@ a {
     box-shadow: -2px 2px 7px;
 }
 
+.deployment-icon .avatar-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 20px;
+    margin-top: 10px;
+    border: 1px solid #BE3E0E;
+}
+
+.deployment-icon-image {
+    width: 45px;
+    padding: 3px;
+}
+
 .dash-card {
     width: 300px;
     height: 415px;
