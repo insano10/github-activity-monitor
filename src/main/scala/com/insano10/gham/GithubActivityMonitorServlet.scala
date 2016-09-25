@@ -66,18 +66,12 @@ class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivi
     response.setHeader("Access-Control-Allow-Headers", request.getHeader("Access-Control-Request-Headers"))
   }
 
-  get("/") {
-
-    contentType = "text/html"
-    html.Index.render()
-  }
-
-  get("/user") {
+  get("/api/user") {
 
     userRepository.getUsers(repoList, daysDataToRetrieve)
   }
 
-  get("/repository") {
+  get("/api/repository") {
 
     new AsyncResult() {
       val is =
@@ -85,7 +79,7 @@ class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivi
     }
   }
 
-  get("/config") {
+  get("/api/config") {
 
     appConfig
   }

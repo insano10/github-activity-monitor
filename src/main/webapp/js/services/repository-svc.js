@@ -4,7 +4,7 @@
 
     mod.factory("Repository", ["$resource", function RepositoryFactory($resource){
 
-        return $resource("http://localhost:8080/repository", {}, {});
+        return $resource("http://localhost:8080/api/repository", {}, {});
 
     }]);
 

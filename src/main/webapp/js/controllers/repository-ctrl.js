@@ -12,7 +12,7 @@
             console.log("error: " + JSON.stringify(errorResponse));
         });
 
-        $http.get("http://localhost:8080/config")
+        $http.get("http://localhost:8080/api/config")
             .then(function(response) {
                 ctrl.days = response.data.daysData;
             });

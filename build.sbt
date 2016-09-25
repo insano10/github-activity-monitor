@@ -7,8 +7,7 @@ import sbt._
 
 lazy val main = project.in(file(".")).
   enablePlugins(JettyPlugin).
-  enablePlugins(JavaAppPackaging).
-  enablePlugins(SbtTwirl)
+  enablePlugins(JavaAppPackaging)
 
 
 name := "Github Activity Monitor"
@@ -53,8 +52,8 @@ mappings in Universal += file("nginx.conf") -> "nginx.conf"
 mappings in Universal += file("docker-run.sh") -> "docker-run.sh"
 
 //add webapp directory and all content into docker stage
-mappings in Universal <++= (packageBin in Compile, target ) map { (_, target) =>
-  val dir = target / "webapp"
+mappings in Universal <++= baseDirectory map { baseDir =>
+  val dir = baseDir / "src" / "main" / "webapp"
   (dir.*** --- dir) pair rebase(dir, "static")
 }
 
