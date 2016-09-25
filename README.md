@@ -9,11 +9,15 @@ See application.conf.template for config options
 through sbt:
 
     > sbt run
+    
+    browse to http://localhost:8080
 
 or with docker:
 
     > sbt docker:publishLocal
     > docker run -p 8080:8080 github-activity-monitor:0.1.0-SNAPSHOT
+    
+    browse to http://localhost:8080/repositories
 
 Handy docker commands while testing:
 

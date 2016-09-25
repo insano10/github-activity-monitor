@@ -46,10 +46,9 @@ resolvers += Resolver.jcenterRepo
 resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
 
 
-
 //add config files to docker stage
-mappings in Universal += file("nginx.conf") -> "nginx.conf"
-mappings in Universal += file("docker-run.sh") -> "docker-run.sh"
+mappings in Universal += file("conf/nginx.conf") -> "../../nginx.conf"
+mappings in Universal += file("conf/docker-run.sh") -> "bin/docker-run.sh"
 
 //add webapp directory and all content into docker stage
 mappings in Universal <++= baseDirectory map { baseDir =>
@@ -67,8 +66,7 @@ dockerCommands := Seq(
 
   Cmd("RUN", "apt-get", "update"),
   Cmd("RUN", "apt-get", "install", "-y", "nginx"),
-  Cmd("ADD", "opt/docker/nginx.conf", "/etc/nginx/nginx.conf"),
-  Cmd("ADD", "opt/docker/docker-run.sh", "/opt/docker/bin/docker-run.sh"),
+  Cmd("ADD", "nginx.conf", "/etc/nginx/nginx.conf"),
 
   Cmd("RUN", "[\"chown\", \"-R\", \"daemon:daemon\", \".\"]"),
   Cmd("ENTRYPOINT", "[\"bin/docker-run.sh\"]"),
