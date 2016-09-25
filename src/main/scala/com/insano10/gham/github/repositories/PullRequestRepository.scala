@@ -19,7 +19,7 @@ class PullRequestRepository(github: GitHub) extends StrictLogging {
 
   def getPullRequests(repository: GHRepository, daysDataToRetrieve: Int): List[PullRequest] = {
 
-    memoizeSync(30 minutes) {
+    memoizeSync(10 minutes) {
 
       val pullRequests = fetchPullRequests(repository)
       transform(pullRequests, daysDataToRetrieve)

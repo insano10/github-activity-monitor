@@ -27,7 +27,7 @@ class RepositoryRepository(github: GitHub, pullRequestRepository: PullRequestRep
 
   def getRepositorySummaries(repositories: List[String], daysDataToRetrieve: Int)(implicit ec: ExecutionContext): Future[List[RepositorySummary]] =
 
-    memoizeSync(30 minutes) {
+    memoizeSync(10 minutes) {
 
       val repositorySummaries = repositories.map(repoFullName => {
 

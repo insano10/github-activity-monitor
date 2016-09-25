@@ -42,8 +42,8 @@ class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivi
 
       val gocdUrl = typesafeConfig.getString("gocd.baseUrl")
       val gocdClient = new GoCDClient(system, gocdUrl,
-                                              typesafeConfig.getString("gocd.username"),
-                                              typesafeConfig.getString("gocd.password"))
+        typesafeConfig.getString("gocd.username"),
+        typesafeConfig.getString("gocd.password"))
       val goCDDeploymentStatusRetriever = new GoCDDeploymentStatusRetriever(gocdClient, typesafeConfig, gocdUrl)
 
       repoRepository.setDeploymentStatusRetriever(goCDDeploymentStatusRetriever)
@@ -53,7 +53,18 @@ class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivi
   }
 
   def primeCaches() = {
-    system.scheduler.schedule(0 minutes, 1 minute)(repoRepository.getRepositorySummaries(repoList, daysDataToRetrieve))
+
+    logger.info("Starting cache poker")
+
+    val task = new Runnable {
+      def run() {
+        repoRepository.getRepositorySummaries(repoList, daysDataToRetrieve)
+      }
+    }
+    system.scheduler.schedule(
+      initialDelay = 0 minutes,
+      interval = 1 minute,
+      runnable = task)
   }
 
   errorHandler = {
