@@ -1,20 +1,26 @@
 <div class="card text-xs-center dash-card">
     <div class="card-header">
-        <ul class="nav nav-pills card-header-pills pull-xs-left">
-            <li class="nav-item">
-                <a class="nav-link active" href="#">Active</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Disabled</a>
-            </li>
-        </ul>
+        <h2 class="dash-card-title">
+            {{ user.username }}
+        </h2>
     </div>
     <div class="card-block">
-        <h4 class="card-title">{{ user.user }}</h4>
-        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        <div>
+            <img class="avatar-icon" ng-src="{{ user.avatarUrl }}"/>
+        </div>
+        <div>
+            Total pull requests raised: {{ user.pullRequestSummary.totalPullRequestsRaised }}<br/>
+        </div>
+        <div>
+            Total pull requests commented on: {{ user.pullRequestSummary.totallPullRequestsCommentedOn }}<br/>
+        </div>
+        <div>
+            Avg mins to close own pull request: {{ user.pullRequestSummary.avgMinsToClose }}
+        </div>
+        <div>
+            Avg mins to first comment on other pull requests: {{ user.pullRequestSummary.avgMinsToFirstComment }}
+        </div>
+    </div>
+    <div class="card-footer dash-footer">
     </div>
 </div>

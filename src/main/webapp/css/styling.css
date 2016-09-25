@@ -31,6 +31,26 @@ a {
     margin-top: 3px;
 }
 
+.app-header-link {
+    margin-top: 3px;
+    position: absolute;
+    color: white;
+}
+
+.stats-icon {
+    right: 10px;
+    font-size: 30px;
+}
+
+.users-icon {
+    right: 60px;
+}
+
+.repos-icon {
+    margin-top:5px;
+    right: 105px;
+}
+
 .card-block {
     height: 210px;
 }
