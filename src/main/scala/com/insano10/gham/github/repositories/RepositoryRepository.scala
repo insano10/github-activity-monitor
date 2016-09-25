@@ -2,7 +2,7 @@ package com.insano10.gham.github.repositories
 
 import java.text.SimpleDateFormat
 
-import com.insano10.gham.entities.GithubEntities.{Commit, RepositorySummary}
+import com.insano10.gham.github.entities.GithubEntities.{Commit, RepositorySummary}
 import com.insano10.gham.github.{DeploymentStatusRetriever, NoOpDeploymentStatusRetriever}
 import com.typesafe.scalalogging.StrictLogging
 import org.kohsuke.github.{GHRepository, GitHub}
@@ -43,7 +43,7 @@ class RepositoryRepository(github: GitHub, pullRequestRepository: PullRequestRep
           repo.getPushedAt.getTime,
           getMostRecentUserCommit(repo),
           openPullRequests,
-          deploymentStatusRetriever.repositoryNeedsDeployment(repoFullName),
+          deploymentStatusRetriever.getDeploymentStatus(repoFullName),
           deploymentStatusRetriever.deploymentUrl(repoFullName))
       }).sortBy(repo => repo.name)
 

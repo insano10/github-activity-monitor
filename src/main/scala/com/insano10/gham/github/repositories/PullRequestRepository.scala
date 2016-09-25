@@ -3,7 +3,7 @@ package com.insano10.gham.github.repositories
 import java.io.IOException
 import java.util.Date
 
-import com.insano10.gham.entities.GithubEntities.{Comment, PullRequest}
+import com.insano10.gham.github.entities.GithubEntities.{Comment, PullRequest}
 import com.typesafe.scalalogging.StrictLogging
 import org.kohsuke.github._
 

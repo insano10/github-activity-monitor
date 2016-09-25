@@ -1,4 +1,4 @@
-package com.insano10.gham.entities
+package com.insano10.gham.github.entities
 
 object GithubEntities {
 
@@ -38,13 +38,16 @@ object GithubEntities {
     }
   }
 
+  case class DeploymentOwner(val user: String, val avatarUrl: String)
+  case class DeploymentStatus(val needsDeployment: Boolean, val deploymentOwner: Option[DeploymentOwner])
+
   case class RepositorySummary(val name: String,
                                val url: String,
                                val pullRequests: List[PullRequest],
                                val lastPushTimeMs: Long,
                                val mostRecentCommit: Commit,
                                val openPullRequests: Int,
-                               val needsDeployment: Boolean,
+                               val deploymentStatus: DeploymentStatus,
                                val deploymentUrl: String)
 
 }

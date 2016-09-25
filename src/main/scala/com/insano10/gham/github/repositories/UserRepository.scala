@@ -1,6 +1,6 @@
 package com.insano10.gham.github.repositories
 
-import com.insano10.gham.entities.GithubEntities.{PullRequest, User, UserPullRequestSummary}
+import com.insano10.gham.github.entities.GithubEntities.{UserPullRequestSummary, PullRequest, User}
 import org.kohsuke.github.GitHub
 
 import scala.concurrent.duration._

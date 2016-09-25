@@ -1,5 +1,5 @@
 <div class="card text-xs-center dash-card">
-    <div class="deployment-icon" ng-if="repository.needsDeployment">
+    <div class="deployment-icon" ng-if="repository.deploymentStatus.needsDeployment">
         <a ng-href="{{ repository.deploymentUrl }}" target="_blank"><img src="images/rocket.png" width="45" title="Needs deployment"/></a>
     </div>
     <div class="card-header">

@@ -14,15 +14,37 @@ class GoCDClient(system: ActorSystem, baseUrl: String, username: String, passwor
 
   implicit val formats = DefaultFormats
 
-  def doesPipelineNeedDeployment(pipelineName: String): Future[Boolean] = {
+  def getPipelineDeploymentStatus(pipelineName: String): Future[(Boolean, Option[String])] = {
 
     getPipelineHistory(pipelineName).flatMap(history => {
 
       val mostRecentPipeline = history.pipelines.head
       val lastStageInMostRecentPipeline = mostRecentPipeline.stages.length - 1
+      val mostRecentPipelineHasBeenDeployed = mostRecentPipeline.stages(lastStageInMostRecentPipeline).scheduled
 
-      Future.successful(!mostRecentPipeline.stages(lastStageInMostRecentPipeline).scheduled)
+      if(!mostRecentPipelineHasBeenDeployed) {
+        Future.successful((true, getDeploymentOwner(history)))
+      } else {
+        Future.successful(false, None)
+      }
     })
+  }
+
+  private def getDeploymentOwner(history: PipelineHistory): Option[String] = {
+
+    val incompletePipelines = history.pipelines.takeWhile(p => {
+      val lastStageInPipeline = p.stages.length - 1
+      !p.stages(lastStageInPipeline).scheduled
+    })
+
+    //look for the oldest undeployed pipeline that was triggered by a modification
+    incompletePipelines.reverse.
+      find(p => p.build_cause.trigger_message.contains("modified by")
+      ).
+      flatMap(p => {
+        val pattern = "^modified by\\s(.*)\\s.*".r
+        pattern.findFirstMatchIn(p.build_cause.trigger_message).flatMap(m => Some(m.group(1)))
+      })
   }
 
   private def getPipelineHistory(pipelineName: String)(implicit ctx: ExecutionContext): Future[PipelineHistory] = {
