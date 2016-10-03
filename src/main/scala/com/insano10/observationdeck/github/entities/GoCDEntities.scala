@@ -1,4 +1,4 @@
-package com.insano10.gham.github.entities
+package com.insano10.observationdeck.github.entities
 
 object GoCDEntities {
 

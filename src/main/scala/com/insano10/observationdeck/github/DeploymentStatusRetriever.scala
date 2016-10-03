@@ -1,6 +1,6 @@
-package com.insano10.gham.github
+package com.insano10.observationdeck.github
 
-import com.insano10.gham.github.entities.GithubEntities.DeploymentStatus
+import com.insano10.observationdeck.github.entities.GithubEntities.DeploymentStatus
 
 trait DeploymentStatusRetriever {
   def getDeploymentStatus(repoName: String): DeploymentStatus

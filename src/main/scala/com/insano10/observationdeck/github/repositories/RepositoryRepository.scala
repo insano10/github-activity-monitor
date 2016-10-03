@@ -1,9 +1,9 @@
-package com.insano10.gham.github.repositories
+package com.insano10.observationdeck.github.repositories
 
 import java.text.SimpleDateFormat
 
-import com.insano10.gham.github.entities.GithubEntities.{Commit, RepositorySummary}
-import com.insano10.gham.github.{DeploymentStatusRetriever, NoOpDeploymentStatusRetriever}
+import com.insano10.observationdeck.github.entities.GithubEntities.{Commit, RepositorySummary}
+import com.insano10.observationdeck.github.{DeploymentStatusRetriever, NoOpDeploymentStatusRetriever}
 import com.typesafe.scalalogging.StrictLogging
 import org.kohsuke.github.{GHRepository, GitHub}
 

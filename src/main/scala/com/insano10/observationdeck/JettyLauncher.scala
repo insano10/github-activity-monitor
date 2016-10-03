@@ -1,4 +1,4 @@
-package com.insano10.gham
+package com.insano10.observationdeck
 
 import org.eclipse.jetty.server.Server
 import org.eclipse.jetty.servlet.DefaultServlet

@@ -1,9 +1,9 @@
-package com.insano10.gham
+package com.insano10.observationdeck
 
 import _root_.akka.actor.ActorSystem
-import com.insano10.gham.github.entities.AppConfig
-import com.insano10.gham.github.repositories.{PullRequestRepository, RepositoryRepository, UserRepository}
-import com.insano10.gham.gocd.{GoCDClient, GoCDDeploymentStatusRetriever}
+import com.insano10.observationdeck.github.entities.AppConfig
+import com.insano10.observationdeck.github.repositories.{PullRequestRepository, RepositoryRepository, UserRepository}
+import com.insano10.observationdeck.gocd.{GoCDClient, GoCDDeploymentStatusRetriever}
 import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.StrictLogging
 import org.json4s.{DefaultFormats, Formats}
@@ -15,7 +15,7 @@ import scala.collection.JavaConverters._
 import scala.concurrent.ExecutionContext
 import scala.concurrent.duration._
 
-class GithubActivityMonitorServlet(val system: ActorSystem) extends GithubActivityMonitorStack
+class ObservationDeckServlet(val system: ActorSystem) extends ObservationDeckStack
   with JacksonJsonSupport
   with CorsSupport
   with FutureSupport

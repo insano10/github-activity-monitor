@@ -1,7 +1,7 @@
-package com.insano10.gham.gocd
+package com.insano10.observationdeck.gocd
 
 import akka.actor.ActorSystem
-import com.insano10.gham.github.entities.GoCDEntities.PipelineHistory
+import com.insano10.observationdeck.github.entities.GoCDEntities.PipelineHistory
 import dispatch.{url, _}
 import org.json4s._
 

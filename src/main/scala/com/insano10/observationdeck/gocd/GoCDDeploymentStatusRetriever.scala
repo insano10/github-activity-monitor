@@ -1,9 +1,9 @@
-package com.insano10.gham.gocd
+package com.insano10.observationdeck.gocd
 
 import java.util.concurrent.TimeUnit
 
-import com.insano10.gham.github.DeploymentStatusRetriever
-import com.insano10.gham.github.entities.GithubEntities.{DeploymentOwner, DeploymentStatus}
+import com.insano10.observationdeck.github.DeploymentStatusRetriever
+import com.insano10.observationdeck.github.entities.GithubEntities.{DeploymentOwner, DeploymentStatus}
 import com.typesafe.config.Config
 import com.typesafe.scalalogging.StrictLogging
 import org.kohsuke.github.{GHUser, GitHub}

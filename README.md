@@ -1,4 +1,4 @@
-# github-activity-monitor
+# observation-deck
 
 Summarise the status and latest activity of github repositories.
 Optionally configure a GoCD server to included deployment status tracking
@@ -15,7 +15,7 @@ through sbt:
 or with docker:
 
     > sbt docker:publishLocal
-    > docker run -p 8080:8080 github-activity-monitor:0.1.0-SNAPSHOT
+    > docker run -p 8080:8080 observation-deck:0.1.0-SNAPSHOT
     
     browse to http://localhost:8080/repositories
 
