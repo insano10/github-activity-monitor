@@ -1,5 +1,5 @@
 .idea/
-github-activity-monitor.iml
+observation-deck.iml
 src/main/resources/application.conf
 project/project/
 project/target/
