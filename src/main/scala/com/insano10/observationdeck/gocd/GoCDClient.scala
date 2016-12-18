@@ -1,5 +1,8 @@
 package com.insano10.observationdeck.gocd
 
+import java.text.SimpleDateFormat
+import java.util.Date
+
 import akka.actor.ActorSystem
 import com.insano10.observationdeck.gocd.entities.GoCDEntities
 import GoCDEntities.{Pipeline, GoCDDeploymentStatus, PipelineHistory}
@@ -43,7 +46,11 @@ class GoCDClient(system: ActorSystem, baseUrl: String, username: String, passwor
     //squash all the Lists together and sort them by decreasing release date
     val mergedPipelines: Future[List[ReleasedPipeline]] = Future.fold(releasedPipelines)(List[ReleasedPipeline]())((acc, e) => (acc ++ e).sortWith(_.releasedAtMs > _.releasedAtMs))
 
-    mergedPipelines
+    //group the pipelines by day
+    val dateFormat: SimpleDateFormat = new SimpleDateFormat("dd-MM-yyyy")
+    val pipelinesGroupedByDay = mergedPipelines.map(pipelines => pipelines.groupBy(p => dateFormat.parse(dateFormat.format(new Date(p.releasedAtMs))).getTime))
+
+    pipelinesGroupedByDay
   }
 
   private def getPipelineReleaseHistory(pipelineConfig: PipelineConfig, daysDataToRetrieve: Int, currentDepth: Int): Future[List[ReleasedPipeline]] = {

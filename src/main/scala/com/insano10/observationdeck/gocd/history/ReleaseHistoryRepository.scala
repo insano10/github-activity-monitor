@@ -21,10 +21,10 @@ class ReleaseHistoryRepository() extends StrictLogging {
     this.releaseHistoryRetriever = releaseHistoryRetriever
   }
 
-  def getReleaseHistory: Future[List[ReleasedPipeline]] = {
+  def getReleaseHistory: Future[Map[Long, List[ReleasedPipeline]]] = {
 
     if (releaseHistoryRetriever == null) {
-      Future.successful(List())
+      Future.successful(Map())
     } else {
 
       memoizeSync(10 minutes) {
