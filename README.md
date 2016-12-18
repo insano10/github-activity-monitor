@@ -6,6 +6,8 @@ See application.conf.template for config options
 
 ## Running
 
+Set the appropriate hostname in `src/main/webapp/app/app.js`
+
 through sbt:
 
     > sbt run

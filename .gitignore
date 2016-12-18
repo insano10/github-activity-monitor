@@ -1,6 +1,5 @@
 .idea/
 observation-deck.iml
-src/main/resources/application.conf
 project/project/
 project/target/
 target/

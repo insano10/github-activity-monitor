@@ -10,10 +10,10 @@
     </div>
     <div class="card-block">
         <div>
-            <h5 class="card-title">Last change pushed:</h5>
-            <h4>{{ repository.lastPushTimeMs | date:"EEE dd MMM yyyy" }}</h4>
+            <h5 class="card-title">Last commit:</h5>
+            <h4>{{ repository.mostRecentCommit.timestamp | date:"EEE dd MMM yyyy" }}</h4>
             <div class="dash-last-commit row">
-                <div class="dash-last-commit-title">Last commit:</div>
+                <div class="dash-last-commit-title">Details:</div>
                 <div class="dash-last-commit-item">
                     <img class="avatar-icon" ng-src="{{ repository.mostRecentCommit.avatarUrl }}" data-toggle="tooltip" title="{{ repository.mostRecentCommit.owner }}"/>
                 </div>

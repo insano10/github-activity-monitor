@@ -3,6 +3,7 @@ package com.insano10.observationdeck
 import _root_.akka.actor.ActorSystem
 import com.insano10.observationdeck.github.entities.AppConfig
 import com.insano10.observationdeck.github.repositories.{PullRequestRepository, RepositoryRepository, UserRepository}
+import com.insano10.observationdeck.gocd.history.{ReleaseHistoryRepository, ReleaseHistoryRetriever}
 import com.insano10.observationdeck.gocd.{GoCDClient, GoCDDeploymentStatusRetriever}
 import com.typesafe.config.ConfigFactory
 import com.typesafe.scalalogging.StrictLogging
@@ -30,10 +31,12 @@ class ObservationDeckServlet(val system: ActorSystem) extends ObservationDeckSta
   private val appConfig = new AppConfig(boardName, daysDataToRetrieve)
   private val github = GitHub.connectUsingOAuth(typesafeConfig.getString("github.oauthToken"))
   private val repoList = typesafeConfig.getStringList("repos").asScala.toList
+  private val ignoredCommitters = typesafeConfig.getStringList("ignoreCommitsFrom").asScala.toList
 
-  private val pullRequestRepository = new PullRequestRepository(github)
+  private val pullRequestRepository = new PullRequestRepository()
   private val userRepository = new UserRepository(github, pullRequestRepository)
   private val repoRepository = new RepositoryRepository(github, pullRequestRepository)
+  private val releaseHistoryRepository = new ReleaseHistoryRepository()
 
   override def initialize(config: ConfigT): Unit = {
     super.initialize(config)
@@ -43,10 +46,14 @@ class ObservationDeckServlet(val system: ActorSystem) extends ObservationDeckSta
       val gocdUrl = typesafeConfig.getString("gocd.baseUrl")
       val gocdClient = new GoCDClient(system, gocdUrl,
         typesafeConfig.getString("gocd.username"),
-        typesafeConfig.getString("gocd.password"))
+        typesafeConfig.getString("gocd.password"),
+        ignoredCommitters)
       val goCDDeploymentStatusRetriever = new GoCDDeploymentStatusRetriever(gocdClient, typesafeConfig, gocdUrl, github)
 
       repoRepository.setDeploymentStatusRetriever(goCDDeploymentStatusRetriever)
+
+      val releaseHistoryRetriever = new ReleaseHistoryRetriever(gocdClient, typesafeConfig, gocdUrl, daysDataToRetrieve)
+      releaseHistoryRepository.initialise(releaseHistoryRetriever)
     }
 
     primeCaches()
@@ -93,6 +100,13 @@ class ObservationDeckServlet(val system: ActorSystem) extends ObservationDeckSta
   get("/api/config") {
 
     appConfig
+  }
+
+  get("/api/history/release") {
+
+    new AsyncResult() {
+      val is = releaseHistoryRepository.getReleaseHistory
+    }
   }
 
 }

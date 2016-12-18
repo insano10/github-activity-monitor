@@ -1,0 +1,14 @@
+<div class="release-history-table">
+
+    <h2>Repository Deployment History</h2>
+    <br/>
+
+    <div class="row" ng-repeat="entry in historyCtrl.releaseHistory">
+        <div class="col-sm-4">
+            {{ entry.releasedAtMs | date:'dd-MM-yyyy HH:mm:ss' }}
+        </div>
+        <div class="col-sm-8">
+            <a ng-href="{{ entry.pipelineUrl }}" target="_blank">{{ entry.shortRepoName }}</a>
+        </div>
+    </div>
+</div>

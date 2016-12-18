@@ -2,9 +2,9 @@
 
     var mod = angular.module("main");
 
-    mod.factory("Repository", ["$resource", function RepositoryFactory($resource){
+    mod.factory("Repository", ["$resource", "hostName", function RepositoryFactory($resource, hostName){
 
-        return $resource("http://localhost:8080/api/repository", {}, {});
+        return $resource("http://" + hostName + ":8080/api/repository", {}, {});
 
     }]);
 

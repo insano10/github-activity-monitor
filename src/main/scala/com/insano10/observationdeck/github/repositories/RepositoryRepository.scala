@@ -40,10 +40,9 @@ class RepositoryRepository(github: GitHub, pullRequestRepository: PullRequestRep
           repo.getName,
           repo.getHtmlUrl.toString,
           pullRequests,
-          repo.getPushedAt.getTime,
           getMostRecentUserCommit(repo),
           openPullRequests,
-          deploymentStatusRetriever.getDeploymentStatus(repoFullName),
+          deploymentStatusRetriever.getDeploymentStatus(repo),
           deploymentStatusRetriever.deploymentUrl(repoFullName))
       }).sortBy(repo => repo.name)
 
@@ -56,6 +55,11 @@ class RepositoryRepository(github: GitHub, pullRequestRepository: PullRequestRep
       dropWhile(_.getAuthor == null).
       next
 
-    new Commit(lastGHCommit.getAuthor.getLogin, lastGHCommit.getAuthor.getAvatarUrl, lastGHCommit.getHtmlUrl.toString, lastGHCommit.getCommitShortInfo.getMessage)
+    new Commit(
+      lastGHCommit.getAuthor.getLogin,
+      lastGHCommit.getAuthor.getAvatarUrl,
+      lastGHCommit.getHtmlUrl.toString,
+      lastGHCommit.getCommitShortInfo.getMessage,
+      lastGHCommit.getCommitShortInfo.getCommitter.getDate.getTime)
   }
 }

@@ -7,9 +7,9 @@
         return {
             restrict:     'E',
             templateUrl:  'app/dash-header/directive/dash-header.html',
-            controller: ['$scope', '$http', function($scope, $http){
+            controller: ['$scope', '$http', 'hostName', function($scope, $http, hostName){
 
-                $http.get("http://localhost:8080/api/config")
+                $http.get("http://" + hostName + ":8080/api/config")
                     .then(function(response) {
                         $scope.boardName = response.data.boardName;
                     });

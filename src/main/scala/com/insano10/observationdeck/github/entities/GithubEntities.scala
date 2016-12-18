@@ -17,7 +17,7 @@ object GithubEntities {
     }
   }
 
-  case class Commit(val owner: String, val avatarUrl: String, val url: String, val message: String)
+  case class Commit(val owner: String, val avatarUrl: String, val url: String, val message: String, val timestamp: Long)
 
   case class User(val username: String, val avatarUrl: String, val pullRequestSummary: UserPullRequestSummary)
 
@@ -44,7 +44,6 @@ object GithubEntities {
   case class RepositorySummary(val name: String,
                                val url: String,
                                val pullRequests: List[PullRequest],
-                               val lastPushTimeMs: Long,
                                val mostRecentCommit: Commit,
                                val openPullRequests: Int,
                                val deploymentStatus: DeploymentStatus,

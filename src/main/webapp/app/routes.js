@@ -14,10 +14,10 @@
                 controller:   "RepositoryController",
                 controllerAs: "repoCtrl"
             })
-            .when("/stats", {
-                templateUrl:  "app/stats/stats-view.html",
-                controller:   "StatsController",
-                controllerAs: "statsCtrl"
+            .when("/history", {
+                templateUrl:  "app/history/history-view.html",
+                controller:   "HistoryController",
+                controllerAs: "historyCtrl"
             })
             .when("/", {
                 redirectTo: '/repositories'

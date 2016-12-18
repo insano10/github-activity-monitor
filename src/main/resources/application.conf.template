@@ -11,6 +11,8 @@ repos = [
   "user/my-repo-2"
 ]
 
+ignoredCommitters = ["spy@stealth.com"]
+
 //Optional GoCD config
 gocd {
   baseUrl = "http://my-gocd.com"

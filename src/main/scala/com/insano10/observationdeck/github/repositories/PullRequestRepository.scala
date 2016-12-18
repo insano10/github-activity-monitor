@@ -13,7 +13,7 @@ import scalacache.ScalaCache
 import scalacache.guava.GuavaCache
 import scalacache.memoization._
 
-class PullRequestRepository(github: GitHub) extends StrictLogging {
+class PullRequestRepository() extends StrictLogging {
 
   implicit val cache = ScalaCache(GuavaCache())
 
@@ -26,7 +26,7 @@ class PullRequestRepository(github: GitHub) extends StrictLogging {
     }
   }
 
-  def fetchPullRequests(repository: GHRepository): PagedIterable[GHPullRequest] = {
+  private def fetchPullRequests(repository: GHRepository): PagedIterable[GHPullRequest] = {
 
     try {
       repository.queryPullRequests.base("master").direction(GHDirection.DESC).state(GHIssueState.ALL).list.withPageSize(10)
@@ -37,7 +37,7 @@ class PullRequestRepository(github: GitHub) extends StrictLogging {
     }
   }
 
-  def transform(pullRequests: PagedIterable[GHPullRequest], daysRetrieved: Int): List[PullRequest] = {
+  private def transform(pullRequests: PagedIterable[GHPullRequest], daysRetrieved: Int): List[PullRequest] = {
 
     val minTime = System.currentTimeMillis() - (daysRetrieved * 24 * 60 * 60 * 1000L)
 
@@ -46,17 +46,12 @@ class PullRequestRepository(github: GitHub) extends StrictLogging {
       pullRequests.iterator().asScala.
         takeWhile(pr => pr.getCreatedAt.getTime > minTime).
         map(pr => {
-          val pullRequest: PullRequest = new PullRequest(pr.getRepository.getName,
+          new PullRequest(pr.getRepository.getName,
             pr.getRepository.getFullName,
             pr.getUser.getLogin,
             pr.getTitle,
             pr.getCreatedAt.getTime,
             dateToOptMillis(pr.getClosedAt))
-
-          for (comment <- pr.getComments.asScala) {
-            pullRequest.addComment(new Comment(comment.getUser.getLogin, comment.getUpdatedAt.getTime))
-          }
-          pullRequest
         }).
         toList
     }
@@ -65,7 +60,7 @@ class PullRequestRepository(github: GitHub) extends StrictLogging {
     }
   }
 
-  def dateToOptMillis(date: Date) = date match {
+  private def dateToOptMillis(date: Date) = date match {
     case null => None
     case x => Some(x.getTime)
   }

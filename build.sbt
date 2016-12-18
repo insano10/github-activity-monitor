@@ -10,7 +10,7 @@ lazy val main = project.in(file(".")).
   enablePlugins(JavaAppPackaging)
 
 
-name := "Observation Deck"
+name := "observation-deck"
 version := "0.1.0-SNAPSHOT"
 scalaVersion := "2.11.8"
 
@@ -18,6 +18,7 @@ maintainer in Docker := "insano10 <jdommett@gmail.com>"
 packageSummary in Docker := "A Github monitoring dashboard"
 packageDescription := "Monitor the status of Github repositories"
 dockerExposedPorts in Docker := Seq(8080)
+//dockerRepository := Some("yourDockerRepo")
 
 
 val ScalatraVersion = "2.4.1"
