@@ -4,6 +4,8 @@ Summarise the status and latest activity of github repositories.
 Optionally configure a GoCD server to included deployment status tracking
 See application.conf.template for config options
 
+![Observation Deck screenshot](https://github.com/insano10/observation-deck/blob/master/dash_pic.png)
+
 ## Running
 
 Set the appropriate hostname in `src/main/webapp/app/app.js`
