@@ -1,0 +1,6 @@
+<loading-thingy ng-if="repoCtrl.loading"> </loading-thingy>
+
+<div ng-repeat="repository in repoCtrl.repositories | orderBy: ['-deploymentStatus.needsDeployment', '-openPullRequests', '-mostRecentCommit.timestamp']">
+    <repository repository="repository" days="{{ repoCtrl.days }}"></repository>
+</div>
+
