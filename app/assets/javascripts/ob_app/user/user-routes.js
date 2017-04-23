@@ -1,7 +1,7 @@
 define(['angular', './user-controllers'], function (angular, controllers) {
     'use strict';
 
-    return angular.module('user.routes', ['user.services'])
+    return angular.module('user.routes', [])
         .config(['$routeProvider', function ($routeProvider) {
 
             $routeProvider

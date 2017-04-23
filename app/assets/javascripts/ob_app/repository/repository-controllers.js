@@ -1,9 +1,8 @@
-(function ()
-{
-    var mod = angular.module("main");
+define([], function () {
+    'use strict';
 
-    mod.controller("RepositoryController", ['Repository', '$http', 'hostName', function (Repository, $http, hostName)
-    {
+    var RepositoryCtrl = function (Repository, $http, hostName) {
+
         var ctrl = this;
 
         function refreshRepositories() {
@@ -28,6 +27,11 @@
             });
 
         setInterval(refreshRepositories, 60000);
-    }]);
+    };
+    RepositoryCtrl.$inject = ['Repository', '$http', 'hostName'];
 
-})();
+    return {
+        RepositoryCtrl: RepositoryCtrl
+    };
+
+});
