@@ -1,7 +1,4 @@
 port over angular app
-- wire in ob_app/history
-- get rid of ob_app/app
-- get rid of ob_app/routes
 - copy over CSS
 - copy over other images
 - overwrite index.html.scala with observation deck index.html
