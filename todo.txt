@@ -1,7 +1,5 @@
 port over angular app
-- wire in ob_app/loading-thingy
 - wire in ob_app/history
-- wire in ob_app/dash-header
 - get rid of ob_app/app
 - get rid of ob_app/routes
 - copy over CSS
