@@ -6,14 +6,14 @@
 
         function getHistory() {
             return $http({
-                      method: 'GET',
-                      url:    "http://" + hostName + ":8080/api/history/release"
-                  });
+                             method: 'GET',
+                             url:    "http://" + hostName + ":8080/api/history/release"
+                         });
         }
 
         return {
             'getHistory': getHistory
-        }
+        };
 
     }]);
 

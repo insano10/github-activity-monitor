@@ -16,11 +16,11 @@
                 scope.totalPullRequests = scope.repository.pullRequests.length;
 
                 scope.closedPullRequests = scope.repository.pullRequests.filter(function(pr) {
-                   return pr.closedTimeMs != null;
+                   return pr.closedTimeMs !== null;
                 }).length;
 
                 scope.openPullRequests = scope.repository.pullRequests.filter(function(pr) {
-                    return pr.closedTimeMs == null;
+                    return pr.closedTimeMs === null;
                 }).length;
 
                 var lastCommitMsg = scope.repository.mostRecentCommit.message;
