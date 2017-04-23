@@ -5,5 +5,5 @@
 define(['angular', './user-routes', './user-services', './directive/user-directive'], function(angular) {
   'use strict';
 
-  return angular.module('observation-deck.user', ['user.routes', 'user.services', 'user.directives']);
+  return angular.module('observation-deck.user', ['ngRoute', 'user.routes', 'user.services', 'user.directives']);
 });

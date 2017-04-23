@@ -1,6 +1,5 @@
 port over angular app
-- overwrite index.html.scala with observation deck index.html
-- ensure localhost:9000 goes to observation deck app
+- done!
 
 port over scala backend
 - create placeholder endpoints for the angular app to call

@@ -5,27 +5,18 @@
  * Splitting it into several RequireJS modules allows async loading. We cannot take full advantage
  * of RequireJS and lazy-load stuff because the angular modules have their own dependency system.
  */
-define(['angular', 'home', 'user', 'dashboard', 'ob_app/user', 'ob_app/repository', 'ob_app/components', 'ob_app/history'],
+define(['angular', 'ob_app/user', 'ob_app/repository', 'ob_app/components', 'ob_app/history'],
        function (angular) {
            'use strict';
 
            // We must already declare most dependencies here (except for common), or the submodules' routes
            // will not be resolved
-           var app = angular.module('app', ['yourprefix.home', 'yourprefix.user', 'yourprefix.dashboard',
-               'observation-deck.user', 'observation-deck.repository', 'observation-deck.components', 'observation-deck.history']);
+           var app = angular.module('app', ['observation-deck.user', 'observation-deck.repository', 'observation-deck.components', 'observation-deck.history']);
 
            //todo: delete
            app.value('hostName', 'localhost');
 
-           app.config(['$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
-           //    $routeProvider
-           //        .when("/", {
-           //            redirectTo: '/repositories'
-           //        })
-           //        .otherwise({
-           //                       redirectTo: "/"
-           //                   });
-
+           app.config(['$locationProvider', function ($locationProvider) {
                $locationProvider.html5Mode(true);
            }]);
 

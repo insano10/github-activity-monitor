@@ -5,7 +5,7 @@ define(['angular', './repository-controllers'], function (angular, controllers) 
         .config(['$routeProvider', function ($routeProvider) {
 
             $routeProvider
-                .when("/repositories", {
+                .when("/", {
                     templateUrl:  "/assets/javascripts/ob_app/repository/repository-view.html",
                     controller:   controllers.RepositoryCtrl,
                     controllerAs: "repoCtrl"

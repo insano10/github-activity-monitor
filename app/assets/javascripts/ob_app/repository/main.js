@@ -5,5 +5,5 @@
 define(['angular', './repository-routes', './repository-services', './directive/repository-directive'], function(angular) {
   'use strict';
 
-  return angular.module('observation-deck.repository', ['repository.routes', 'repository.services', 'repository.directives']);
+  return angular.module('observation-deck.repository', ['ngRoute', 'ngResource', 'repository.routes', 'repository.services', 'repository.directives']);
 });

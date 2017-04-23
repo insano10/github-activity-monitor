@@ -5,7 +5,7 @@
   // -- RequireJS config --
   requirejs.config({
     // Packages = top-level folders; loads a contained file named 'main.js"
-    packages: ['common', 'home', 'user', 'dashboard', 'ob_app/user', 'ob_app/repository', 'ob_app/components', 'ob_app/history'],
+    packages: ['ob_app/user', 'ob_app/repository', 'ob_app/components', 'ob_app/history'],
     shim: {
       'jsRoutes': {
         deps: [],
@@ -17,6 +17,7 @@
         deps: ['jquery'],
         exports: 'angular'
       },
+      'angular-resource': ['angular'],
       'angular-route': ['angular'],
       'angular-cookies': ['angular'],
       'bootstrap': ['jquery']
@@ -25,6 +26,7 @@
       'requirejs': ['../lib/requirejs/require'],
       'jquery': ['../lib/jquery/jquery'],
       'angular': ['../lib/angularjs/angular'],
+      'angular-resource': ['../lib/angularjs/angular-resource'],
       'angular-route': ['../lib/angularjs/angular-route'],
       'angular-cookies': ['../lib/angularjs/angular-cookies'],
       'bootstrap': ['../lib/bootstrap/js/bootstrap'],
@@ -37,7 +39,7 @@
   };
 
   // Load the app. This is kept minimal so it doesn't need much updating.
-  require(['angular', 'angular-cookies', 'angular-route', 'jquery', 'bootstrap', './app'],
+  require(['angular', 'angular-cookies', 'angular-route', 'angular-resource', 'jquery', 'bootstrap', './app'],
     function (angular) {
       angular.bootstrap(document, ['app']);
     }

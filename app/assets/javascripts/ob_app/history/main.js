@@ -5,5 +5,5 @@
 define(['angular', './history-routes', './history-services'], function(angular) {
   'use strict';
 
-  return angular.module('observation-deck.history', ['history.routes', 'history.services']);
+  return angular.module('observation-deck.history', ['ngRoute', 'history.routes', 'history.services']);
 });
