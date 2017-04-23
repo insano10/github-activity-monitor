@@ -1,0 +1,24 @@
+port over angular app
+- wire in ob_app/loading-thingy
+- wire in ob_app/history
+- wire in ob_app/dash-header
+- get rid of ob_app/app
+- get rid of ob_app/routes
+- copy over CSS
+- copy over other images
+- overwrite index.html.scala with observation deck index.html
+- ensure localhost:9000 goes to observation deck app
+
+port over scala backend
+- create placeholder endpoints for the angular app to call
+- copy over rest of code to serve up API responses
+- parameterise config file
+- parameterise index.html.scala with appropriate hostname read from config
+
+
+cleanup
+- delete old angular app
+- delete old scala backend
+- check all dependencies and config files
+
+should the app (payg/sme) be an api parameter? i.e. one application to serve both dashboards?
