@@ -1,6 +1,4 @@
 port over angular app
-- copy over CSS
-- copy over other images
 - overwrite index.html.scala with observation deck index.html
 - ensure localhost:9000 goes to observation deck app
 
