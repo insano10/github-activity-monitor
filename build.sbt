@@ -1,75 +1,77 @@
-import com.earldouglas.xwp.JettyPlugin
-import com.typesafe.sbt.packager.archetypes.JavaAppPackaging
-import com.typesafe.sbt.packager.docker.{Cmd, ExecCmd}
-import NativePackagerHelper._
-import sbt.Keys._
-import sbt._
-
-lazy val main = project.in(file(".")).
-  enablePlugins(JettyPlugin).
-  enablePlugins(JavaAppPackaging)
-
-
 name := "observation-deck"
-version := "0.1.0-SNAPSHOT"
-scalaVersion := "2.11.8"
 
-maintainer in Docker := "insano10 <jdommett@gmail.com>"
-packageSummary in Docker := "A Github monitoring dashboard"
-packageDescription := "Monitor the status of Github repositories"
-dockerExposedPorts in Docker := Seq(8080)
-//dockerRepository := Some("yourDockerRepo")
+organization in ThisBuild := "com.insano10"
 
+version := "0.1-SNAPSHOT"
 
-val ScalatraVersion = "2.4.1"
-val DispatchVersion = "0.11.3"
+scalaVersion in ThisBuild := "2.11.8"
 
+lazy val root = (project in file("."))
+  .enablePlugins(PlayScala)
+
+// Dependencies
 libraryDependencies ++= Seq(
-  "org.kohsuke" % "github-api" % "1.77",
-  "com.typesafe" % "config" % "1.2.1",
-  "com.typesafe.scala-logging" % "scala-logging_2.11" % "3.4.0",
-  "com.github.cb372" %% "scalacache-guava" % "0.9.1",
-  "org.scalatra" %% "scalatra" % ScalatraVersion,
-  "org.scalatra" %% "scalatra-scalate" % ScalatraVersion,
-  "org.scalatra" %% "scalatra-json" % ScalatraVersion,
-  "org.json4s" %% "json4s-jackson" % "3.3.0",
-  "com.typesafe.akka" %% "akka-actor" % "2.4.9",
-  "net.databinder.dispatch" %% "dispatch-core" % DispatchVersion,
-  "net.databinder.dispatch" %% "dispatch-json4s-native" % DispatchVersion,
-  "org.scalatra" %% "scalatra-specs2" % ScalatraVersion % "test",
-  "ch.qos.logback" % "logback-classic" % "1.1.5" % "runtime",
-  "org.eclipse.jetty" % "jetty-webapp" % "9.2.15.v20160210" % "container;compile",
-  "javax.servlet" % "javax.servlet-api" % "3.1.0" % "provided"
+  filters,
+  cache,
+  // WebJars (i.e. client-side) dependencies
+  "org.webjars" % "requirejs" % "2.3.2",
+  "org.webjars" % "underscorejs" % "1.8.3",
+  "org.webjars" % "jquery" % "1.12.4",
+  "org.webjars" % "bootstrap" % "3.3.7-1" exclude("org.webjars", "jquery"),
+  "org.webjars" % "angularjs" % "1.4.10" exclude("org.webjars", "jquery")
 )
 
-resolvers += Classpaths.typesafeReleases
-resolvers += Resolver.jcenterRepo
-resolvers += "Scalaz Bintray Repo" at "http://dl.bintray.com/scalaz/releases"
-
-
-//add config files to docker stage
-mappings in Universal += file("conf/nginx.conf") -> "../../nginx.conf"
-mappings in Universal += file("conf/docker-run.sh") -> "bin/docker-run.sh"
-
-//add webapp directory and all content into docker stage
-mappings in Universal <++= baseDirectory map { baseDir =>
-  val dir = baseDir / "src" / "main" / "webapp"
-  (dir.*** --- dir) pair rebase(dir, "static")
-}
-
-dockerCommands := Seq(
-  Cmd("FROM", "java:8"),
-  Cmd("MAINTAINER", "insano10 <jdommett@gmail.com>"),
-  Cmd("ENV", "APP_PORT", "8090"),
-  Cmd("WORKDIR", "/opt/docker"),
-  Cmd("ADD", "opt /opt"),
-  Cmd("EXPOSE", "8080"),
-
-  Cmd("RUN", "apt-get", "update"),
-  Cmd("RUN", "apt-get", "install", "-y", "nginx"),
-  Cmd("ADD", "nginx.conf", "/etc/nginx/nginx.conf"),
-
-  Cmd("RUN", "[\"chown\", \"-R\", \"daemon:daemon\", \".\"]"),
-  Cmd("ENTRYPOINT", "[\"bin/docker-run.sh\"]"),
-  ExecCmd("CMD")
+// Scala Compiler Options
+scalacOptions in ThisBuild ++= Seq(
+  "-target:jvm-1.8",
+  "-encoding", "UTF-8",
+  "-deprecation", // warning and location for usages of deprecated APIs
+  "-feature", // warning and location for usages of features that should be imported explicitly
+  "-unchecked", // additional warnings where generated code depends on assumptions
+  "-Xlint", // recommended additional warnings
+  "-Xcheckinit", // runtime error when a val is not initialized due to trait hierarchies (instead of NPE somewhere else)
+  "-Ywarn-adapted-args", // Warn if an argument list is modified to match the receiver
+  //"-Yno-adapted-args", // Do not adapt an argument list (either by inserting () or creating a tuple) to match the receiver
+  "-Ywarn-value-discard", // Warn when non-Unit expression results are unused
+  "-Ywarn-inaccessible", // Warn about inaccessible types in method signatures
+  "-Ywarn-dead-code", // Warn when dead code is identified
+  "-Ywarn-unused", // Warn when local and private vals, vars, defs, and types are unused
+  "-Ywarn-unused-import", //  Warn when imports are unused (don't want IntelliJ to do it automatically)
+  "-Ywarn-numeric-widen" // Warn when numerics are widened
 )
+
+//
+// sbt-web configuration
+// https://github.com/sbt/sbt-web
+//
+
+// Configure the steps of the asset pipeline (used in stage and dist tasks)
+// rjs = RequireJS, uglifies, shrinks to one file, replaces WebJars with CDN
+// digest = Adds hash to filename
+// gzip = Zips all assets, Asset controller serves them automatically when client accepts them
+pipelineStages := Seq(rjs, digest, gzip)
+
+// RequireJS with sbt-rjs (https://github.com/sbt/sbt-rjs#sbt-rjs)
+// ~~~
+RjsKeys.paths += ("jsRoutes" -> ("/jsroutes" -> "empty:"))
+
+//RjsKeys.mainModule := "main"
+
+// Asset hashing with sbt-digest (https://github.com/sbt/sbt-digest)
+// ~~~
+// md5 | sha1
+//DigestKeys.algorithms := "md5"
+//includeFilter in digest := "..."
+//excludeFilter in digest := "..."
+
+// HTTP compression with sbt-gzip (https://github.com/sbt/sbt-gzip)
+// ~~~
+// includeFilter in GzipKeys.compress := "*.html" || "*.css" || "*.js"
+// excludeFilter in GzipKeys.compress := "..."
+
+// JavaScript linting with sbt-jshint (https://github.com/sbt/sbt-jshint)
+// ~~~
+// JshintKeys.config := ".jshintrc"
+
+// All work and no play...
+emojiLogs
