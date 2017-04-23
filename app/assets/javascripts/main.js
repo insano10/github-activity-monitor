@@ -5,7 +5,7 @@
   // -- RequireJS config --
   requirejs.config({
     // Packages = top-level folders; loads a contained file named 'main.js"
-    packages: ['common', 'home', 'user', 'dashboard', 'ob_app/user', 'ob_app/repository', 'ob_app/components'],
+    packages: ['common', 'home', 'user', 'dashboard', 'ob_app/user', 'ob_app/repository', 'ob_app/components', 'ob_app/history'],
     shim: {
       'jsRoutes': {
         deps: [],
