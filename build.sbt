@@ -10,9 +10,15 @@ lazy val root = (project in file("."))
   .enablePlugins(PlayScala)
 
 // Dependencies
+
+val DispatchVersion = "0.11.3"
+
 libraryDependencies ++= Seq(
   filters,
   cache,
+  "org.kohsuke" % "github-api" % "1.77",
+  "net.databinder.dispatch" %% "dispatch-core" % DispatchVersion,
+  "net.databinder.dispatch" %% "dispatch-json4s-native" % DispatchVersion,
   // WebJars (i.e. client-side) dependencies
   "org.webjars" % "requirejs" % "2.3.2",
   "org.webjars" % "underscorejs" % "1.8.3",

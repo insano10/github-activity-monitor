@@ -24,6 +24,7 @@ GET           /authuser            controllers.Users.authUser()
 
 # Observation Deck
 GET           /config              controllers.Config.config()
+GET           /repository          controllers.Repository.repository()
 
 # Static
 # ~~~~

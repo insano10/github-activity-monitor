@@ -18,6 +18,7 @@ class AppComponents(context: Context) extends BuiltInComponentsFromContext(conte
   lazy val applicationController = new controllers.Application(defaultCacheApi)
   lazy val usersController = new controllers.Users(defaultCacheApi)
   lazy val configController = new controllers.Config()
+  lazy val repositoryController = new controllers.Repository(defaultCacheApi)
   lazy val assets = new controllers.Assets(httpErrorHandler)
 
   // Routes is a generated class
@@ -26,6 +27,7 @@ class AppComponents(context: Context) extends BuiltInComponentsFromContext(conte
     applicationController,
     usersController,
     configController,
+    repositoryController,
     assets
   ).withPrefix(httpConfiguration.context) // set prefix via play.http.context in application.conf
 

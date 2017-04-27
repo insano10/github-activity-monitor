@@ -9,6 +9,7 @@ port over scala backend
 
 
 cleanup
+- organise scala classes better
 - delete old angular app
 - delete old scala backend
 - check all dependencies and config files
