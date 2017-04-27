@@ -20,16 +20,17 @@
       'angular-resource': ['angular'],
       'angular-route': ['angular'],
       'angular-cookies': ['angular'],
-      'bootstrap': ['jquery']
+      'bootstrap': ['jquery', 'tether']
     },
     paths: {
-      'requirejs': ['../lib/requirejs/require'],
-      'jquery': ['../lib/jquery/jquery'],
-      'angular': ['../lib/angularjs/angular'],
-      'angular-resource': ['../lib/angularjs/angular-resource'],
-      'angular-route': ['../lib/angularjs/angular-route'],
-      'angular-cookies': ['../lib/angularjs/angular-cookies'],
-      'bootstrap': ['../lib/bootstrap/js/bootstrap'],
+      'requirejs': ['../lib/requirejs/require.min'],
+      'jquery': ['../lib/jquery/jquery.min'],
+      'angular': ['../lib/angularjs/angular.min'],
+      'angular-resource': ['../lib/angularjs/angular-resource.min'],
+      'angular-route': ['../lib/angularjs/angular-route.min'],
+      'angular-cookies': ['../lib/angularjs/angular-cookies.min'],
+      'bootstrap': ['../lib/bootstrap/js/bootstrap.min'],
+      'tether': ['../lib/tether/dist/js/tether.min'],
       'jsRoutes': ['/jsroutes']
     }
   });
@@ -39,7 +40,7 @@
   };
 
   // Load the app. This is kept minimal so it doesn't need much updating.
-  require(['angular', 'angular-cookies', 'angular-route', 'angular-resource', 'jquery', 'bootstrap', './app'],
+  require(['angular', 'angular-cookies', 'angular-route', 'angular-resource', 'jquery', 'tether', 'bootstrap', './app'],
     function (angular) {
       angular.bootstrap(document, ['app']);
     }

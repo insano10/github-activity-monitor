@@ -22,9 +22,11 @@ libraryDependencies ++= Seq(
   // WebJars (i.e. client-side) dependencies
   "org.webjars" % "requirejs" % "2.3.2",
   "org.webjars" % "underscorejs" % "1.8.3",
-  "org.webjars" % "jquery" % "1.12.4",
-  "org.webjars" % "bootstrap" % "3.3.7-1" exclude("org.webjars", "jquery"),
-  "org.webjars" % "angularjs" % "1.4.10" exclude("org.webjars", "jquery")
+  "org.webjars.bower" % "tether" % "1.3.3",
+  "org.webjars" % "jquery" % "2.2.0",
+  "org.webjars" % "bootstrap" % "4.0.0-alpha.6-1" exclude("org.webjars", "jquery"),
+  "org.webjars" % "angularjs" % "1.5.0-rc.2" exclude("org.webjars", "jquery"),
+  "org.webjars" % "octicons" % "4.2.0"
 )
 
 // Scala Compiler Options

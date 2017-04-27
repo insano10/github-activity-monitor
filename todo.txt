@@ -2,10 +2,12 @@ port over angular app
 - done!
 
 port over scala backend
-- create placeholder endpoints for the angular app to call
-- copy over rest of code to serve up API responses
-- parameterise config file
+- done!
 
+fix the front end CSS
+- switch from less to scss to pull in bootstrap/octicon styles
+- fix tether error
+- include tether css
 
 cleanup
 - organise scala classes better
