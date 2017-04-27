@@ -21,7 +21,7 @@ define([], function () {
 
         refreshRepositories();
 
-        $http.get("http://" + hostName + ":8080/api/config")
+        $http.get("http://" + hostName + ":9000/config")
             .then(function(response) {
                 ctrl.days = response.data.daysData;
             });
