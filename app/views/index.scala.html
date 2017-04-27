@@ -1,4 +1,4 @@
-@() <!DOCTYPE html>
+@(hostName: String) <!DOCTYPE html>
 <html>
     <head>
         <base href="/">
@@ -8,6 +8,12 @@
         @*-- Add More CSS here -- *@
         <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
         <script data-main="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript" src="@routes.Assets.versioned("lib/requirejs/require.js")"></script>
+
+        <script type="application/javascript">
+            var AppConfig = {
+                hostName: "@hostName"
+            }
+        </script>
     </head>
     <body>
         <div class="app-header" data-ng-controller="DashHeaderCtrl">

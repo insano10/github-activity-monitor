@@ -5,7 +5,6 @@ port over scala backend
 - create placeholder endpoints for the angular app to call
 - copy over rest of code to serve up API responses
 - parameterise config file
-- parameterise index.html.scala with appropriate hostname read from config
 
 
 cleanup

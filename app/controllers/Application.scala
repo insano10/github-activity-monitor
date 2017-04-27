@@ -1,5 +1,6 @@
 package controllers
 
+import com.typesafe.config.ConfigFactory
 import models._
 
 import play.api.cache._
@@ -27,13 +28,18 @@ class Application(val cache: CacheApi) extends Controller with Security with Log
   /** Serves the index page, see views/index.scala.html */
   def index = Action {
     log.debug("Index called")
-    Ok(views.html.index())
+
+    val typesafeConfig = ConfigFactory.load(sys.env("CONFIG_FILE"))
+    val hostname = typesafeConfig.getString("server.hostname")
+
+    Ok(views.html.index(hostname))
   }
 
   /**
    * Retrieves all routes via reflection.
    * http://stackoverflow.com/questions/12012703/less-verbose-way-of-generating-play-2s-javascript-router
-   * @todo If you have controllers in multiple packages, you need to add each package here.
+    *
+    * @todo If you have controllers in multiple packages, you need to add each package here.
    */
   val routeCache = {
     val jsRoutesClasses = Seq(classOf[routes.javascript]) // TODO add your own packages
@@ -50,7 +56,8 @@ class Application(val cache: CacheApi) extends Controller with Security with Log
   /**
    * Returns the JavaScript router that the client can use for "type-safe" routes.
    * Uses browser caching; set duration (in seconds) according to your release cycle.
-   * @param varName The name of the global variable, defaults to `jsRoutes`
+    *
+    * @param varName The name of the global variable, defaults to `jsRoutes`
    */
   def jsRoutes(varName: String = "jsRoutes") = Caching("jsRoutes", cacheDuration) {
     Action { implicit request =>

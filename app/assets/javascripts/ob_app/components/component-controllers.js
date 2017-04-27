@@ -3,7 +3,7 @@ define([], function () {
 
     var DashHeaderCtrl = function ($scope, $http){
 
-        $http.get("http://localhost:9000/config")
+        $http.get("http://" + AppConfig.hostName + ":9000/config")
             .then(function(response) {
                 $scope.boardName = response.data.boardName;
             });

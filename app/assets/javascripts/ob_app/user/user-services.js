@@ -3,8 +3,8 @@ define(['angular'], function (angular) {
 
     var mod = angular.module('user.services', []);
 
-    mod.factory('User', ["$resource", "hostName", function ($resource, hostName) {
-        return $resource("http://" + hostName + ":8080/api/user", {}, {});
+    mod.factory('User', ["$resource", function ($resource) {
+        return $resource("http://" + AppConfig.hostName + ":8080/api/user", {}, {});
     }]);
 
     return mod;

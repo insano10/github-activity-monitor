@@ -1,7 +1,7 @@
 define([], function () {
     'use strict';
 
-    var RepositoryCtrl = function (Repository, $http, hostName) {
+    var RepositoryCtrl = function (Repository, $http) {
 
         var ctrl = this;
 
@@ -21,14 +21,14 @@ define([], function () {
 
         refreshRepositories();
 
-        $http.get("http://" + hostName + ":9000/config")
+        $http.get("http://" + AppConfig.hostName + ":9000/config")
             .then(function(response) {
                 ctrl.days = response.data.daysData;
             });
 
         setInterval(refreshRepositories, 60000);
     };
-    RepositoryCtrl.$inject = ['Repository', '$http', 'hostName'];
+    RepositoryCtrl.$inject = ['Repository', '$http'];
 
     return {
         RepositoryCtrl: RepositoryCtrl

@@ -13,9 +13,6 @@ define(['angular', 'ob_app/user', 'ob_app/repository', 'ob_app/components', 'ob_
            // will not be resolved
            var app = angular.module('app', ['observation-deck.user', 'observation-deck.repository', 'observation-deck.components', 'observation-deck.history']);
 
-           //todo: delete
-           app.value('hostName', 'localhost');
-
            app.config(['$locationProvider', function ($locationProvider) {
                $locationProvider.html5Mode(true);
            }]);
