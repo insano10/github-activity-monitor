@@ -10,7 +10,22 @@
         <script data-main="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript" src="@routes.Assets.versioned("lib/requirejs/require.js")"></script>
     </head>
     <body>
-        <dash-header></dash-header>
+        <div class="app-header" data-ng-controller="DashHeaderCtrl">
+            <div class="app-header-inner">
+                <span class="app-header-text pull-xs-left">Observation Deck</span>
+                <span class="app-header-icon pull-xs-left octicon octicon-eye"></span>
+                <span class="app-header-text pull-xs-left">{{ boardName }}</span>
+            </div>
+            <a href="/repositories">
+                <span class="app-header-link repos-icon mega-octicon octicon-repo"></span>
+            </a>
+            <a href="/history">
+                <span class="app-header-link history-icon mega-octicon octicon-clock"></span>
+            </a>
+                <!--<a href="/users">-->
+            <span class="app-header-link users-icon mega-octicon octicon-organization"></span>
+                <!--</a>-->
+        </div>
         <div ng-view></div>
     </body>
 </html>
